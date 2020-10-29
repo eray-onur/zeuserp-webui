@@ -1,0 +1,67 @@
+#page {
+  height: 90%;
+  margin: 0;
+  padding: 0;
+}
+#productForm {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 2rem;
+  margin: 0rem 1rem 0rem 1rem;
+  &>* {
+    width: 100%;
+  }
+  box-shadow: 1px 1px 6px #444;
+}
+
+#formButtonGroup {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-content: center;
+  grid-gap: 2rem;
+  &>button {
+    width: 10rem;
+  }
+}
+h2 {
+  text-align: center;
+  padding: 2rem;
+  margin: 0;
+}
+.form-input {
+  &__error {
+    color: red;
+  }
+}
+
+/* PROFILE PHOTO SECTION */
+
+.profile-section {
+  display: flex;
+  flex-direction: row;
+  width: 5rem;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    height: 100%;
+    width: 100%;
+  }
+  &__image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding-right: 0.5rem;
+    &>img {
+      object-fit: cover;
+      height: 100px;
+      margin-bottom: 1rem;
+    }
+  }
+
+}

@@ -1,0 +1,30 @@
+<div id="page">
+  <div id="products">
+    <mat-card class="product-card" *ngFor="let product of products">
+      <button mat-icon-button class="product-card-edit" color="primary" (click)="editProduct(product.id)"><mat-icon>edit</mat-icon></button>
+      <img class="product-card-image" src={{product.imgPath}}/>
+      <div class="product-card-info">
+        <div class="product-card-title mat-title">{{ product.name }}</div>
+        <p class="mat-body-1 product-card-desc">{{ product.description }}</p>
+        <div class="product-card-cost">
+          <p class="mat-body-2">Unit Cost:</p><p>{{ product.unitCost }} $</p>
+        </div>
+        <div class="product-card-price">
+          <p class="mat-body-2">Unit Price:</p><p>{{ product.unitPrice }} $</p>
+        </div>
+        <div class="product-card-extras">
+            <div class="product-card-ops">
+              <p class="mat-caption">Select an operation:</p>
+              <select [(value)]="selectedOperationOption">
+                <option value="duplicate">Duplicate</option>
+                <option value="archive">Archive</option>
+                <option value="delete">Delete</option>
+              </select>
+            </div>
+            <button mat-flat-button color="primary"><mat-icon>offline_pin</mat-icon></button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+</div>

@@ -1,0 +1,38 @@
+<div id="page">
+  <mat-drawer-container class="inventory-container" autosize>
+    <mat-drawer #drawer class="inventory-sidenav" mode="over">
+      <div class="sidenav-header">
+        <!-- <button mat-icon-button><mat-icon>menu</mat-icon></button> -->
+        <h2 id="headerTitle">Inventory</h2>
+      </div>
+      <ul class="sidenav-item-list">
+        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Products</li>
+        <li>
+          <ul class="sidenav-sub-item">
+            <li matRipple [routerLink]="['/', 'inventory', 'add-product']">Add Product</li>
+          </ul>
+        </li>
+        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'orders']"><mat-icon>plagiarism</mat-icon>&nbsp;&nbsp;Orders</li>
+        <li>
+          <ul class="sidenav-sub-item">
+            <li matRipple>Transfers</li>
+            <li matRipple>Scrap Orders</li>
+            <li matRipple>Replenishment Orders</li>
+          </ul>
+        </li>
+        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'locations']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Locations</li>
+        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'contacts']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Contacts</li>
+      </ul>
+    </mat-drawer>
+    <div class="inventory-sidenav-content">
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <button mat-icon-button id="btnToggleSidenav" type="button" (click)="drawer.toggle()" aria-label="Example icon button with a home icon">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-container>
+</div>

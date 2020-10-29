@@ -1,0 +1,38 @@
+<div id="page">
+  <h2 class="mat-h2">Enter the Product's Information</h2>
+  <form [formGroup]="productForm" id="productForm" (ngSubmit)="onProductFormSubmit()">
+    <div class="profile-section">
+      <div class="profile-section__image">
+        <img id="profileImg" [src]="profileImageUrl"/>
+        <input type="file" formControlName="imgPath" (change)="submitImg($event)"/>
+      </div>
+      <div class="profile-section__content">
+        <mat-form-field>
+          <input matInput placeholder="Product Title" formControlName="name" required>
+        </mat-form-field>
+        <p class="form-input__error" mat-body-1 *ngIf="productForm.get('name').dirty && productForm.get('name').errors?.required">This field is required.</p>
+        <mat-form-field>
+          <textarea matInput placeholder="Product Description" formControlName="description" maxlength=300></textarea>
+          <mat-hint align="end">{{productForm.get("description").value?.length || 0}}/300</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <!--TODO: Custom select component must be developed. -->
+    <mat-form-field>
+      <input matInput placeholder="Barcode Number" formControlName="barcodeNumber"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="number" matInput placeholder="Unit Count" formControlName="unitCount"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="number" matInput placeholder="Unit Cost" formControlName="unitCost"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="number" matInput placeholder="Unit Price" formControlName="unitPrice"/>
+    </mat-form-field>
+    <div id="formButtonGroup">
+      <button type="submit" role="button" mat-flat-button color="primary">Create</button>
+      <button role="button" mat-flat-button color="warn" (click)="onDiscard()">Discard</button>
+    </div>
+  </form>
+</div>
