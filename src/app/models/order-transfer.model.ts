@@ -1,4 +1,4 @@
-export interface TransferModel {
+export interface OrderTransfer {
   id?: number,
   fromLocationId: number,
   toLocationId: number,

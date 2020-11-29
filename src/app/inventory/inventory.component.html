@@ -6,21 +6,22 @@
         <h2 id="headerTitle">Inventory</h2>
       </div>
       <ul class="sidenav-item-list">
-        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Products</li>
+        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'products']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Products</li>
         <li>
           <ul class="sidenav-sub-item">
-            <li matRipple [routerLink]="['/', 'inventory', 'add-product']">Add Product</li>
+            <li matRipple [routerLink]="['/', 'inventory', 'products', 'add']">Add Product</li>
           </ul>
         </li>
         <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'orders']"><mat-icon>plagiarism</mat-icon>&nbsp;&nbsp;Orders</li>
         <li>
           <ul class="sidenav-sub-item">
             <li matRipple>Transfers</li>
-            <li matRipple>Scrap Orders</li>
-            <li matRipple>Replenishment Orders</li>
+            <li matRipple>Replenishment</li>
+            <li matRipple [routerLink]="['/','inventory', 'orders', 'scraps']">Scrap</li>
           </ul>
         </li>
         <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'locations']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Locations</li>
+        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'warehouses']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Warehouses</li>
         <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'contacts']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Contacts</li>
       </ul>
     </mat-drawer>

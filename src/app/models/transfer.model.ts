@@ -1,4 +1,5 @@
 export interface Transfer {
+  id: number,
   receiveFromId: number,
   operationTypeId: number,
   destinationLocationId: number,

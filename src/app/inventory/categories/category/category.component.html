@@ -1,0 +1,50 @@
+<div>
+    <item-card-details>
+        <div body>
+            <detail-card-header 
+            [title]="categoryDetails.categoryName"
+            >
+            </detail-card-header>
+            <div>
+                <form-element-container>
+                    <p class="mat-body-strong column">Parent Category</p>
+                    <a class="mat-body column" (click)="this.navigate('/inventory/categories/' + categoryDetails.subcategoryId)">{{categoryDetails.subcategoryName}}</a>
+                </form-element-container>
+              </div>
+              <mat-tab-group dynamicHeight>
+                  <mat-tab label="General Information">
+                    <form-element-container>
+                        <p class="mat-body-strong column">Description</p>
+                        <mat-form-field class="column">
+                            <textarea matInput class="column" [value]="this.categoryDetails.categoryDescription" [disabled]="true"></textarea>
+                        </mat-form-field>
+                    </form-element-container>
+                  </mat-tab>
+              </mat-tab-group>
+        </div>
+        <div actions *ngIf="showDetails === true">
+            <!-- <item-detail-action 
+                title="Bill Of Materials"
+                iconName="list"
+                quantity=1
+                (navigateTo)="navigate('/manufacturing/products/boms')"
+            ></item-detail-action>
+            <item-detail-action 
+                title="On Hand Quantity"
+                [quantity]="productDetails.ProductQuantity"
+                iconName="edit"
+            ></item-detail-action>
+            <item-detail-action 
+                title="Edit Product"
+                iconName="add"
+                (navigateTo)="navigate('/inventory/products/edit/1')"
+            ></item-detail-action>
+            <item-detail-action 
+                title="Archive Product"
+                iconName="remove"
+                (navigateTo)="navigate('/inventory/products/edit/1')"
+            ></item-detail-action> -->
+        </div>
+    </item-card-details>
+</div>
+  

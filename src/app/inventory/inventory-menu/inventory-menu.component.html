@@ -1,30 +1,40 @@
 <div id="page">
+  <div id="overviewOptions">
+    <div id="dataFilters">
+    </div>
+    <mat-button-toggle-group id="dataLayouts">
+      <mat-button-toggle value="left">
+        <button mat-flat-button color="primary"><mat-icon>format_align_left</mat-icon></button>
+      </mat-button-toggle>
+      <mat-button-toggle value="left">
+        <button mat-flat-button color="primary"><mat-icon>filter_none</mat-icon></button>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+  </div>
   <div id="products">
     <mat-card class="product-card" *ngFor="let product of products">
-      <button mat-icon-button class="product-card-edit" color="primary" (click)="editProduct(product.id)"><mat-icon>edit</mat-icon></button>
-      <img class="product-card-image" src={{product.imgPath}}/>
-      <div class="product-card-info">
-        <div class="product-card-title mat-title">{{ product.name }}</div>
-        <p class="mat-body-1 product-card-desc">{{ product.description }}</p>
-        <div class="product-card-cost">
-          <p class="mat-body-2">Unit Cost:</p><p>{{ product.unitCost }} $</p>
+      <mat-card-content>
+        <div class="product-card__img">
+          <img src={{product.imgPath}}/>
         </div>
-        <div class="product-card-price">
-          <p class="mat-body-2">Unit Price:</p><p>{{ product.unitPrice }} $</p>
-        </div>
-        <div class="product-card-extras">
-            <div class="product-card-ops">
-              <p class="mat-caption">Select an operation:</p>
-              <select [(value)]="selectedOperationOption">
-                <option value="duplicate">Duplicate</option>
-                <option value="archive">Archive</option>
-                <option value="delete">Delete</option>
-              </select>
+        <div class="product-card__body">
+          <div class="mat-title product-card__header">{{ product.name }}</div>
+          <div class="mat-body">{{product.description}}</div>
+          <div class="product-card__costs">
+            <div class="product-card__costs--cost">
+              <p>Price:</p><p>{{ product.unitPrice }} $</p>
             </div>
-            <button mat-flat-button color="primary"><mat-icon>offline_pin</mat-icon></button>
+            <div class="product-card__costs--cost">
+              <p>Cost:</p><p>{{ product.unitCost }} $</p>
+            </div>
+          </div>
+          <div class="product-card__actions">
+            <button mat-flat-button color="primary" (click)="editProduct(product.id)"><mat-icon>edit</mat-icon></button>
+            <button mat-flat-button color="primary" (click)="showProductDetails(product.id)"><mat-icon>details</mat-icon></button>
+          </div>
         </div>
-      </div>
+      </mat-card-content>
     </mat-card>
   </div>
-
 </div>

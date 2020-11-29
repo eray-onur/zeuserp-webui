@@ -1,7 +1,5 @@
-export namespace ProductEnums {
-  export enum productType {
-    SERVICE = 0,
-    CONSUMABLE = 1,
-    PRODUCABLE = 2
-  }
+export const ProductType: object = {
+  0: "Service",
+  1: "Consumable",
+  2: "Producable"
 }

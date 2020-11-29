@@ -1,0 +1,21 @@
+<div class="sub-page" style="padding: 0.75rem; display: flex; justify-content: center; align-items: center;">
+  <div class="columns" *ngIf="this.productListDtos">
+    <div>
+      <list-card *ngFor="let product of productListDtos.productList"
+          class="column"
+          [title]="product.ProductName"
+          [imgPath]="'https://eastburncountryfurniture.co.uk/wp-content/uploads/2018/03/Rustic_Wooden_Table_TB008a.jpg'">
+        <app-text-details label="Unit Price" [data]="product.ProductPrice"></app-text-details>
+        <app-text-details label="Unit Cost" [data]="product.ProductCost"></app-text-details>
+        <app-text-details label="Available" [data]="product.ProductQuantity"></app-text-details>
+        <div style="padding: 1rem; box-sizing: border-box; display: flex; justify-content: space-between;">
+          <button mat-flat-button color="primary" style="width: 45%;" (click)="editProduct(product.ProductId)"><mat-icon>edit</mat-icon>Edit</button>
+          <button mat-flat-button color="primary" style="width: 45%;" (click)="showProductDetails(product.ProductId)"><mat-icon>edit</mat-icon>Details</button>
+        </div>
+      </list-card>
+    </div>
+  </div>
+  <mat-progress-spinner *ngIf="!this.productListDtos" style="margin: 0 auto;" strokeWidth="10" diameter="400" color="primary" mode="indeterminate" aria-label="Rating">
+  </mat-progress-spinner>
+</div>
+  

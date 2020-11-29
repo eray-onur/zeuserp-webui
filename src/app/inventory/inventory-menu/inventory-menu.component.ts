@@ -1,9 +1,9 @@
 import { Product } from './../../models/product.model';
 import { ProductService } from '../../services/product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ProductAddDialog } from 'src/app/shared/product-add/product-add.dialog';
 import { Router } from '@angular/router';
+import { CreateProductDialog } from './../../shared/dialogs/create-item/create-product-dialog/create-product-dialog';
 
 @Component({
   selector: 'app-master-page',
@@ -17,7 +17,7 @@ export class InventoryMenuComponent implements OnInit {
   name: string;
   animal: string;
 
-  selectedOperationOption: string = "duplicate"
+
 
   constructor(public dialog: MatDialog,
     private productService: ProductService,
@@ -28,7 +28,7 @@ export class InventoryMenuComponent implements OnInit {
   }
 
   openNewProductDialog(product: Product): void {
-    let dialogRef = this.dialog.open(ProductAddDialog, {
+    let dialogRef = this.dialog.open(CreateProductDialog, {
       data: product,
       panelClass: 'product-add-dialog'
     })
@@ -40,7 +40,11 @@ export class InventoryMenuComponent implements OnInit {
   }
 
   editProduct(productId: number) {
-    this.router.navigate(["/", "inventory", "edit-product", productId]);
+    this.router.navigate(["/", "inventory", "products", "edit", productId]);
+  }
+
+  showProductDetails(productId: number) {
+    this.router.navigate(["/", "inventory", "products", productId]);
   }
 
 }

@@ -1,0 +1,43 @@
+<div>
+    <item-card-details>
+        <div body>
+            <detail-card-header 
+            [title]="scrapDetails.ProductName" 
+            >
+            </detail-card-header>
+            <form-element-container>
+                <p class="mat-body-strong column">Product</p>
+                <p class="column" (click)="openDialog()">Product</p>
+            </form-element-container>
+            <form-element-container>
+                <p class="mat-body-strong column">Quantity</p>
+                <p class="column" >{{this.scrapDetails.ScrappedQuantity}}</p>
+            </form-element-container>
+            <form-element-container>
+                <p class="mat-body-strong column">Source Location</p>
+                <p class="column" >{{this.scrapDetails.SourceLocationName}}</p>
+            </form-element-container>
+            <form-element-container>
+                <p class="mat-body-strong column">Scrap Location</p>
+                <p class="column" >{{this.scrapDetails.ScrapLocationName}}</p>
+            </form-element-container>
+            <form-element-container>
+                <p class="mat-body-strong column">Scheduled Date</p>
+                <p class="column" >{{this.scrapDetails.ScheduledDate}}</p>
+            </form-element-container>
+            <form-element-container>
+                <p class="mat-body-strong column">Completed Date</p>
+                <p class="column" >{{this.scrapDetails.ScheduledDate}}</p>
+            </form-element-container>
+        </div>
+        <div actions>
+            <item-detail-action 
+                title="Product Moves"
+                iconName="list"
+                quantity=1
+                (navigateTo)="navigate('/manufacturing/products/boms')"
+            ></item-detail-action>
+        </div>
+    </item-card-details>
+</div>
+  

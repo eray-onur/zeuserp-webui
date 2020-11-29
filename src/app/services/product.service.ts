@@ -1,94 +1,85 @@
 
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ProductDetailsDto } from '../models/complex-types/product-details.dto';
+import { ProductListDto } from '../models/complex-types/product-list.dto';
+import { BomType } from '../models/enums/bom-type.enum';
 import { Product } from './../models/product.model';
-@Injectable({
-  providedIn: 'root'
-})
+import { endpoints } from './../utils/keywords/endpoints.util';
+@Injectable()
 export class ProductService {
 
   products: Array<Product>;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.products = new Array<Product>();
-
-    const exampleProduct: Product = {
-      id: 1,
-      name: "Tahta Masa",
-      description: "Developer'larin laptoplarini koymasi icin satin alindi.",
-      imgPath: 'https://eastburncountryfurniture.co.uk/wp-content/uploads/2018/03/Rustic_Wooden_Table_TB008a.jpg',
-      unitCost: 50.00,
-      unitPrice: 75.00,
-      unitCount: 10.00,
-      canBeSold: true,
-      canBePurchased: true,
-      responsibleId: 1,
-      weight: 5.00,
-      volume: 10.00,
-      type: 1.
-    };
-    const exampleProductTwo: Product = {
-      id: 2,
-      name: "Tahta Masa #2",
-      description: "Developer'larin laptoplarini koymasi icin satin alindi.",
-      imgPath: 'https://eastburncountryfurniture.co.uk/wp-content/uploads/2018/03/Rustic_Wooden_Table_TB008a.jpg',
-      unitCost: 50.00,
-      unitPrice: 75.00,
-      unitCount: 10.00,
-      canBeSold: true,
-      canBePurchased: true,
-      responsibleId: 1,
-      weight: 5.00,
-      volume: 10.00,
-      type: 1,
-    };
-    const exampleProductThree: Product = {
-      id: 3,
-      name: "Tahta Masa #3",
-      description: "Developer'larin laptoplarini koymasi icin satin alindi.",
-      imgPath: 'https://eastburncountryfurniture.co.uk/wp-content/uploads/2018/03/Rustic_Wooden_Table_TB008a.jpg',
-      unitCost: 50.00,
-      unitPrice: 75.00,
-      unitCount: 5.00,
-      canBeSold: true,
-      canBePurchased: true,
-      responsibleId: 1,
-      weight: 5.00,
-      volume: 10.00,
-      type: 2,
-    };
-    const exampleProductFour: Product = {
-      id: 4,
-      name: "Tahta Masa #4",
-      description: "Developer'larin laptoplarini koymasi icin satin alindi.",
-      imgPath: 'https://eastburncountryfurniture.co.uk/wp-content/uploads/2018/03/Rustic_Wooden_Table_TB008a.jpg',
-      unitCost: 50.00,
-      unitPrice: 75.00,
-      unitCount: 15.00,
-      canBeSold: true,
-      canBePurchased: true,
-      responsibleId: 1,
-      weight: 5.00,
-      volume: 10.00,
-      type: 3,
-    };
-    this.products.push(exampleProduct, exampleProductTwo, exampleProductThree, exampleProductFour);
-    console.log(this.products.length);
+   
   }
 
   getAllProducts() : Array<Product> {
-    console.log(this.products);
-    return this.products;
+    this.http.get<Array<Product>>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getList}`)
+    .subscribe(products => {
+      console.table(products);
+      return [];
+    })
+    return [];
+  }
+
+  async getAllProductsAsync() : Promise<Array<Product>> {
+    await this.http.get<Array<Product>>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getList}`)
+    .subscribe(products => {
+      console.table(products);
+      return products;
+    })
+    return [];
+  }
+
+  getProductDetailsDto(id: number) : ProductDetailsDto {
+    this.http.get<ProductDetailsDto>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getProductDetailsDto}/${id}`)
+    .subscribe(productDetailsDto => {
+      console.table(productDetailsDto);
+      return productDetailsDto;
+    });
+    return null;
+  }
+
+  async getProductDetailsDtoAsync(id: number) : Promise<ProductDetailsDto> {
+    await this.http.get<ProductDetailsDto>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getProductDetailsDto}/${id}`)
+    .subscribe(productDetailsDto => {
+      console.table(productDetailsDto);
+      return productDetailsDto;
+    });
+    return null;
+  }
+
+  getProductListDto(): ProductListDto {
+    this.http.get<Array<ProductListDto>>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getProductListDto}`)
+    .subscribe(productListDto => {
+      console.table(productListDto);
+      return productListDto;
+    });
+    return null;
+  }
+
+  async getProductListDtoAsync(): Promise<ProductListDto> {
+    await this.http.get<Array<ProductListDto>>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getProductListDtoAsync}`)
+    .subscribe(productListDto => {
+      console.table(productListDto);
+      return productListDto;
+    })
+    return null;
+  }
+
+  getProductDtoById(id: number) {
+    return null;
   }
 
   getProductById(id: number) : Product {
-    console.log(id);
-    console.log(this.products.find(p => p.id == id));
-    return this.products.find(p => p.id == id);
+    return null;
   }
 
   add(product: Product) : void {
-    this.products.push(product);
-    console.log("New index of products array is: ", this.products.length);
+    
   }
 
 }

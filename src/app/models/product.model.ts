@@ -1,11 +1,10 @@
 
-
 export interface Product {
   id? : number,
   categoryId?: number,
   name: string,
   description?: string,
-  type: number,
+  type: string,
   barcodeNumber?: string,
   unitCount: number,
   unitPrice: number,

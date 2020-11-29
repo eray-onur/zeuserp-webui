@@ -1,11 +1,7 @@
 import { ErrorPageComponent } from './shared/error-page/error-page.component';
-import { ProductAddDialog } from './shared/product-add/product-add.dialog';
-import { InventoryRoutingModule } from './inventory/inventory-routing.module';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MasterComponent } from './master/master.component';
-
-
 const masterRoutes: Routes = [
   {
     path: '',
@@ -16,10 +12,13 @@ const masterRoutes: Routes = [
     loadChildren: () => import("./inventory/inventory-routing.module").then( m => m.InventoryRoutingModule ),
   },
   {
+    path: 'manufacturing',
+    loadChildren: () => import("./manufacturing/manufacturing-routing.module").then( m => m.ManufacturingRoutingModule ),
+  },
+  {
     path: '**',
     component: ErrorPageComponent,
-    pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({

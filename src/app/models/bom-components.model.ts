@@ -1,4 +1,4 @@
 export interface BillOfMaterialComponents {
   bomId: number,
-  componentId: number
+  componentId: number;
 }

@@ -1,7 +1,7 @@
 export interface BillOfMaterial {
   id: number,
   productId: number,
-  bomTypeId: number,
+  bomType: string,
   quantity: number,
   componentsId: number,
 }

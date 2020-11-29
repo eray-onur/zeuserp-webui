@@ -1,8 +1,10 @@
 export interface Location {
-  id: number,
+  id?: number,
   name: string,
-  locationCode: string,
+  locationCode?: string,
   locationTypeId: number,
-  addressId: number,
-  isInternal: boolean
+  addressId?: number,
+  isInternal?: boolean,
+  isScrap?: boolean,
+  isReturn?: boolean,
 }

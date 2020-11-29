@@ -1,11 +1,11 @@
 export interface Warehouse {
-  id: number,
+  id?: number,
   warehouseCode: string,
   name: string,
   hasLimitedStockCount?: boolean,
-  stockLimit: number,
-  usedForManufacture: boolean,
+  stockLimit?: number,
+  usedForManufacture?: boolean,
   routeListId?: number,
-  locationId: number,
+  locationId?: number,
   photoPath?: string,
 }
