@@ -1,11 +1,14 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProductDetailsDto } from '../models/complex-types/product-details.dto';
 import { ProductListDto } from '../models/complex-types/product-list.dto';
 import { BomType } from '../models/enums/bom-type.enum';
 import { Product } from './../models/product.model';
 import { endpoints } from './../utils/keywords/endpoints.util';
+import { catchError, map, retry, tap } from 'rxjs/operators';
+import { errorCodes } from '../utils/error-codes.util';
+import { Observable, throwError } from 'rxjs';
 @Injectable()
 export class ProductService {
 
@@ -16,70 +19,38 @@ export class ProductService {
    
   }
 
-  getAllProducts() : Array<Product> {
-    this.http.get<Array<Product>>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getList}`)
-    .subscribe(products => {
-      console.table(products);
-      return [];
-    })
-    return [];
+  getProductById(id: number) : Observable<Product> {
+    return this.http.get<Product>(`${endpoints.rootEndpoint}/${endpoints.productEndpoints.get}/${id}`);
   }
 
-  async getAllProductsAsync() : Promise<Array<Product>> {
-    await this.http.get<Array<Product>>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getList}`)
-    .subscribe(products => {
-      console.table(products);
-      return products;
-    })
-    return [];
+  getAllProducts() : Observable<Array<Product>> {
+    return this.http.get<Array<Product>>(`${endpoints.rootEndpoint}/${endpoints.productEndpoints.getList}`);
   }
 
-  getProductDetailsDto(id: number) : ProductDetailsDto {
-    this.http.get<ProductDetailsDto>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getProductDetailsDto}/${id}`)
-    .subscribe(productDetailsDto => {
-      console.table(productDetailsDto);
-      return productDetailsDto;
-    });
-    return null;
+  getProductDetailsDto(id: number) : Observable<ProductDetailsDto> {
+    return this.http.get<ProductDetailsDto>(`${endpoints.rootEndpoint}/${endpoints.productEndpoints.getProductDetailsDto}/${id}`);
   }
 
-  async getProductDetailsDtoAsync(id: number) : Promise<ProductDetailsDto> {
-    await this.http.get<ProductDetailsDto>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getProductDetailsDto}/${id}`)
-    .subscribe(productDetailsDto => {
-      console.table(productDetailsDto);
-      return productDetailsDto;
-    });
-    return null;
+
+  getProductListDto(): Observable<Array<ProductListDto>> {
+    return this.http.get<Array<ProductListDto>>(`${endpoints.rootEndpoint}/${endpoints.productEndpoints.getProductListDto}`);
   }
 
-  getProductListDto(): ProductListDto {
-    this.http.get<Array<ProductListDto>>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getProductListDto}`)
-    .subscribe(productListDto => {
-      console.table(productListDto);
-      return productListDto;
-    });
-    return null;
+  add(product: Product): Observable<any> {
+    return this.http.post<Product>(`${endpoints.rootEndpoint}/${endpoints.productEndpoints.add}`, product);
   }
 
-  async getProductListDtoAsync(): Promise<ProductListDto> {
-    await this.http.get<Array<ProductListDto>>(`${endpoints.rootEndpoint + endpoints.productEndpoints.getProductListDtoAsync}`)
-    .subscribe(productListDto => {
-      console.table(productListDto);
-      return productListDto;
-    })
-    return null;
+  update(product: Product): void {
+    this.http.put<Product>(`${endpoints.rootEndpoint}/${endpoints.productEndpoints.update}`, product);
   }
 
-  getProductDtoById(id: number) {
-    return null;
+  remove(product: Product): void {
+    this.http.delete<Product>(`${endpoints.rootEndpoint}/${endpoints.productEndpoints.delete}/${product.id}`);
   }
 
-  getProductById(id: number) : Product {
-    return null;
-  }
-
-  add(product: Product) : void {
-    
-  }
+  handleError(err: HttpErrorResponse) {
+    console.error(err);
+    return throwError(err);
+  } 
 
 }

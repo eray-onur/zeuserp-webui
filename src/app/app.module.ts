@@ -151,6 +151,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSortModule,
     MatGridListModule,
     MatProgressSpinnerModule,
+
   ],
   exports: [
     MatInputModule,

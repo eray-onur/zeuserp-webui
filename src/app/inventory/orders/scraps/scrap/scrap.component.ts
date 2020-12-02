@@ -13,9 +13,12 @@ import { CreateProductDialog } from 'src/app/shared/dialogs/create-item/create-p
 })
 export class ScrapComponent implements OnInit {
 
-  paramsSubscription : Subscription;
+  routeSubscription : Subscription;
 
   scrapDetails: ScrapDetailsDto;
+  scrapDetailsSub: Subscription;
+
+  createProductDialogSub: Subscription;
 
   constructor(
     private dialog: MatDialog,
@@ -26,14 +29,17 @@ export class ScrapComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.paramsSubscription = this.route.params.subscribe(params => {
+    this.routeSubscription = this.route.params.subscribe(params => {
       const id = +params["id"];
-      this.scrapDetails = this.scrapService.getScrapDetailsById(id);
+      this.scrapDetailsSub = this.scrapService.getScrapDetailsById(id).subscribe(scrapDetails => {
+        this.scrapDetails = scrapDetails;
+      });
     });
   }
 
   ngOnDestroy(): void {
-    this.paramsSubscription.unsubscribe();
+    this.routeSubscription.unsubscribe();
+    this.scrapDetailsSub.unsubscribe();
   }
 
   navigate(uri: string) {
@@ -42,14 +48,22 @@ export class ScrapComponent implements OnInit {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(CreateProductDialog, {
-      width: '300px',
-      data: this.productService.getProductById(this.scrapDetails.ProductId),
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    this.createProductDialogSub = this.productService.getProductById(this.scrapDetails.ProductId).subscribe(
+      p => {
+        let dialogRef = this.dialog.open(CreateProductDialog, {
+          width: '300px',
+          data: p,
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log("[CreateProductDialog]");
+          console.log(result);
+          this.createProductDialogSub.unsubscribe();
+        });
+      }
+    );
+
   }
 
 }

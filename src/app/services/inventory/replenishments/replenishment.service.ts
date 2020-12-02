@@ -1,10 +1,26 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ReplenishmentDetailsDto } from 'src/app/models/complex-types/replenishment-details.dto';
+import { ReplenishmentListDto } from 'src/app/models/complex-types/replenishment-list.dto';
 import { OrderReplenishment } from 'src/app/models/order-replenishment.model';
+import { endpoints } from 'src/app/utils/keywords/endpoints.util';
 
 @Injectable({providedIn: 'root'})
 export class ReplenishmentService {
 
-    replenishmentDetails: Array<OrderReplenishment>;
+    
+    constructor(private http: HttpClient) {
+        
+    }
+
+    getReplenishmentList(): Observable<Array<ReplenishmentListDto>> {
+        return this.http.get<Array<ReplenishmentListDto>>(`${endpoints.rootEndpoint}${endpoints}`);
+    }
+
+    getReplenishmentDetailsById(id: number): Observable<ReplenishmentDetailsDto> {
+        return this.http.get<ReplenishmentDetailsDto>(`${endpoints.rootEndpoint}${endpoints}/${id}`);
+    }
 
     getAll(): Array<OrderReplenishment> {
         const replenishmentOne: OrderReplenishment = {
@@ -33,7 +49,7 @@ export class ReplenishmentService {
 
     add(replenishment: OrderReplenishment) {
         console.log("[ReplenishmentService / Add] New Replenishment")
-        this.replenishmentDetails.push(replenishment);
+        //this.replenishmentDetails.push(replenishment);
     }
 
 

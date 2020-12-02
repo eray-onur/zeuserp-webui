@@ -7,18 +7,21 @@ import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category.model';
 import { CategoryDetailsDto } from 'src/app/models/complex-types/category-details.dto';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'category-add',
   templateUrl: './category-add.component.html',
   styleUrls: ['./category-add.component.scss']
 })
-export class CategoryAddComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CategoryAddComponent implements  OnDestroy {
 
-  profileImageUrl: string;
+  routeSub: Subscription; 
 
   category: Category;
-  categoriesInSelection: Array<Category>;
+  categories: Array<Category>;
+  categoriesSub: Subscription;
   categoryDetailsDto: CategoryDetailsDto;
+  categoryDetailsSub: Subscription;
 
   @ViewChild('btnSubmit')
   btnSubmit: ElementRef;
@@ -44,35 +47,38 @@ export class CategoryAddComponent implements OnInit, AfterViewInit, OnDestroy {
       description: [''],
       parentCategory: []
     });
-    this.categoriesInSelection = this.categoryService.getAll();
-    this.route.params.subscribe(p => {
-
+    this.categoriesSub = this.categoryService.getAll().subscribe(c => {
+      this.categories = c;
+    });
+    this.routeSub = this.route.params.subscribe(p => {
       if(p["id"] !== undefined) {
         const id: number = +p["id"];
         console.log("Category ID is: ", id);
-        this.category = this.categoryService.getById(id);
-        this.categoryDetailsDto = this.categoryService.getCategoryDetailsDto(id);
+        this.categoryDetailsSub = this.categoryService
+        .getCategoryDetailsDto(id).subscribe(c => {
+          this.categoryDetailsDto = c;
+        });
         this.categoryForm.get("name").setValue(this.category.name);
         this.categoryForm.get("description").setValue(this.category.description);
-
+ 
         const subId: number = this.category.subcategoryId;
-        console.log(subId);
-
-        this.categoryForm.get("parentCategory").setValue(subId);
+        if(this.categoryForm.get("parentCategory"))  {
+          this.categoryForm.get("parentCategory").setValue(subId);
+        }
+        
       }
     });
    }
 
-  ngOnInit() {
-  }
-
-  ngAfterViewInit() {
-
-  }
-
   ngOnDestroy(): void {
     if(this.inDialogMode) {
       this.onCategoryAdded.unsubscribe();
+    }
+    if(this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
+    if(this.categoryDetailsSub) {
+      this.categoryDetailsSub.unsubscribe();
     }
   }
 
@@ -82,12 +88,12 @@ export class CategoryAddComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.categoryForm.get("name").value);
-    console.log(this.categoryForm.get("description").value);
+    console.log("[Category] Name: " + this.categoryForm.get("name").value);
+    console.log("[Category] Description: " + this.categoryForm.get("description").value);
     const category: Category = {
       name: this.categoryForm.get("name").value,
       description: this.categoryForm.get("description").value,
-      subcategoryId: this.categoryForm.get("parentCategory").value,
+      subcategoryId: this.categoryForm.get("parentCategory").value ?? -1,
     };
 
     if(this.inDialogMode) {
@@ -96,8 +102,10 @@ export class CategoryAddComponent implements OnInit, AfterViewInit, OnDestroy {
       // Add product to db.
       console.log("Category to Submit: ");
       console.log(category);
-      this.categoryService.add(category);
     }
+    this.categoryService.add(category).subscribe(r => {
+      console.log(r);
+    });
   }
 
   onDiscard() {

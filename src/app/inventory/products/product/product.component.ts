@@ -29,7 +29,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paramsSubscription = this.route.params.subscribe(params => {
       const id = +params["id"];
-      this.productDetails = this.productService.getProductDtoById(id);
+      this.productDetails = this.productService.getProductDetailsDto(id);
     });
   }
 

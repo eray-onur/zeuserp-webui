@@ -1,31 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ReplenishmentDetailsDto } from 'src/app/models/complex-types/replenishment-details.dto';
+import { ReplenishmentListDto } from 'src/app/models/complex-types/replenishment-list.dto';
+import { endpoints } from 'src/app/utils/keywords/endpoints.util';
 
 @Injectable({providedIn: 'root'})
 export class ReplenishmentDetailsService {
 
-    replenishmentDetails: Array<ReplenishmentDetailsDto>;
+    constructor(private http: HttpClient) {
 
-    getAll(): Array<ReplenishmentDetailsDto> {
-        const replenishmentDetailsDtoOne: ReplenishmentDetailsDto = {
-            id: 1,
-            onHandQuantity: 50.000,
-            orderedQuantity: 20.000,
-            replenishmentStatusId: 0,
-        }
-
-        return [replenishmentDetailsDtoOne];
     }
 
-    getById(id: number): ReplenishmentDetailsDto {
-        const replenishmentDetailsDtoOne: ReplenishmentDetailsDto = {
-            id: id,
-            onHandQuantity: 50.000,
-            orderedQuantity: 20.000,
-            replenishmentStatusId: 0,
-        }
-        return replenishmentDetailsDtoOne;
+    getReplenishmentList(): Observable<Array<ReplenishmentListDto>> {
+        return this.http.get<Array<ReplenishmentListDto>>(`${endpoints.rootEndpoint}${endpoints}`);
     }
+
 
 
 }

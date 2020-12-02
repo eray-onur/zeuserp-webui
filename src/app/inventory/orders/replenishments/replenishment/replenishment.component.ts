@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,17 +13,24 @@ import { ProductService } from 'src/app/services/product.service';
 import { CreateProductDialog } from 'src/app/shared/dialogs/create-item/create-product-dialog/create-product-dialog';
 import { CreateLocationDialog } from 'src/app/shared/dialogs/create-item/create-location-dialog/create-location-dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { ProductListDto } from 'src/app/models/complex-types/product-list.dto';
 
 @Component({
   selector: 'app-replenishment',
   templateUrl: './replenishment.component.html',
   styleUrls: ['./replenishment.component.scss']
 })
-export class ReplenishmentComponent implements OnInit {
+export class ReplenishmentComponent implements OnInit, OnDestroy {
 
   replenishmentDetailsDto: Array<ReplenishmentDetailsDto>;
-  products: Array<Product> = new Array<Product>();
+  replenishmentDetailsSub: Subscription;
+
+  products: Array<Product>;
+  productsSub: Subscription;
+
   locations: Array<Location> = new Array<Location>();
+  locationsSub: Subscription;
 
   productOnHand: number = 0.000;
 
@@ -42,19 +49,28 @@ export class ReplenishmentComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog
     ) {
-    this.replenishmentDetailsDto = this.replenishmentDetailsService.getAll();
-    this.products = this.productService.getAllProducts();
-    this.locations = this.locationService.getAll();
+
+      this.productsSub = this.productService.getAllProducts().subscribe(products => {
+        this.products = products;
+      });
+      //this.replenishmentDetailsSub = this.replenishmentDetailsService.getAll()
+      this.replenishmentDetailsDto = this.replenishmentDetailsDto;
+      this.locations = this.locationService.getAll();
 
     
-    this.formBuilder.group({
-      replenishedQuantity:  [0.000, ],
-    });
+      this.formBuilder.group({
+        replenishedQuantity:  [0.000, ],
+      });
 
   }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.replenishmentDetailsService.getAll());
+  }
+
+  ngOnDestroy(): void {
+    this.productsSub.unsubscribe();
+    this.replenishmentDetailsSub.unsubscribe();
   }
 
   openProductDialog(): void {

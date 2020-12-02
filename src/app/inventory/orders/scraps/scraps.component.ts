@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ScrapDetailsDto } from 'src/app/models/complex-types/scrap-details.dto';
 import { ScrapListDto } from 'src/app/models/complex-types/scrap-list.dto';
 import { LocationService } from 'src/app/services/location.service';
@@ -30,42 +32,22 @@ export class ScrapsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  scrapOrdersDto: Array<ScrapListDto> = new Array<ScrapListDto>();
+  scrapOrdersDto: Array<ScrapListDto>;
+  scrapOrdersSub: Subscription;
 
   constructor(
+    private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
     private scrapService: ScrapService,
-    private locationService: LocationService,
-    private productService: ProductService,
     ) { 
-      const scraps = this.scrapService.getAll();
-      scraps.forEach(s => {
-        const scrapLocation = this.locationService.getById(s.scrapLocationId);
-        const sourceLocation = this.locationService.getById(s.sourceLocationId);
-        const product = this.productService.getProductById(s.productId);
-        const scrapDto: ScrapListDto = {
-          ScrapId: s.id,
-          ScrapOrderCode: s.orderCode,
-          ScrapLocationId: scrapLocation.id,
-          ScrapLocationName: scrapLocation.name,
-          SourceLocationId: sourceLocation.id,
-          SourceLocationName: sourceLocation.name,
-          ProductId: product.id,
-          ProductName: product.name,
-          ScrappedQuantity: s.quantity,
-          ScheduledDate: s.scheduledDate,
-          CompletedDate: s.completedDate,
-          ScrapStatus: s.scrapStatus,
-        }
-        this.scrapOrdersDto.push(scrapDto);
+      this.scrapOrdersSub = this.scrapService.getScrapList().subscribe(s => {
+        this.scrapOrdersDto = s;
       });
-  
     }
 
   
   ngOnInit(): void {
-    console.log("NEW DTO IS: ", this.scrapOrdersDto);
     this.dataSource = new MatTableDataSource<ScrapListDto>(this.scrapOrdersDto);
   }
 

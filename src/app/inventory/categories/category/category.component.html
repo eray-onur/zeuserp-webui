@@ -2,13 +2,13 @@
     <item-card-details>
         <div body>
             <detail-card-header 
-            [title]="categoryDetails.categoryName"
+            [title]="categoryDetailsDto.categoryName"
             >
             </detail-card-header>
             <div>
                 <form-element-container>
                     <p class="mat-body-strong column">Parent Category</p>
-                    <a class="mat-body column" (click)="this.navigate('/inventory/categories/' + categoryDetails.subcategoryId)">{{categoryDetails.subcategoryName}}</a>
+                    <a class="mat-body column" (click)="this.navigate('/inventory/categories/' + categoryDetailsDto.subcategoryId)">{{categoryDetailsDto.subcategoryName}}</a>
                 </form-element-container>
               </div>
               <mat-tab-group dynamicHeight>
@@ -16,7 +16,7 @@
                     <form-element-container>
                         <p class="mat-body-strong column">Description</p>
                         <mat-form-field class="column">
-                            <textarea matInput class="column" [value]="this.categoryDetails.categoryDescription" [disabled]="true"></textarea>
+                            <textarea matInput class="column" [value]="this.categoryDetailsDto.categoryDescription" [disabled]="true"></textarea>
                         </mat-form-field>
                     </form-element-container>
                   </mat-tab>

@@ -13,7 +13,7 @@
                         <p class="mat-body-strong column">Parent Category</p>
                         <mat-form-field class="column">
                             <mat-select [formControl]="this.categoryForm.get('parentCategory')">
-                                <mat-option *ngFor="let c of categoriesInSelection" [value]="c['id']">
+                                <mat-option *ngFor="let c of categories" [value]="c['id']">
                                   {{ c["name"] }}
                                 </mat-option>
                             </mat-select>

@@ -13,7 +13,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   paramsSubscription : Subscription;
 
-  categoryDetails: CategoryDetailsDto;
+  categoryDetailsDto: CategoryDetailsDto;
+  categoryDetailsSub: Subscription;
 
   @Input()
   showDetails: boolean = true;
@@ -26,7 +27,9 @@ export class CategoryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paramsSubscription = this.route.params.subscribe(params => {
       const id = +params["id"];
-      this.categoryDetails = this.categoryService.getCategoryDetailsDto(id);
+      this.categoryDetailsSub = this.categoryService.getCategoryDetailsDto(id).subscribe(c => {
+        this.categoryDetailsDto = c;
+      });
     });
   }
 

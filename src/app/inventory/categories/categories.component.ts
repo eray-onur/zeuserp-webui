@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CategoryListDto } from 'src/app/models/complex-types/category-list.dto';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -11,6 +13,9 @@ import { CategoryService } from 'src/app/services/category.service';
 export class CategoriesComponent implements OnInit {
 
   categoryListDtos: Array<CategoryListDto>;
+  categoryListSub: Subscription;
+
+  failedLoading: boolean = false;
 
   name: string;
 
@@ -18,14 +23,27 @@ export class CategoriesComponent implements OnInit {
     private categoryService: CategoryService,
     private router: Router
     ) { 
-      this.categoryListDtos = this.categoryService.getCategoryListDto();
+      this.categoryListSub = this.categoryService.getCategoryListDto().subscribe(
+        c => {
+        this.categoryListDtos = c;
+        }, 
+        error => this.onRetrievalError(error)
+      );
     }
 
   ngOnInit(): void {
     console.log(this.categoryListDtos);
   }
 
-  
+  onRetrievalError(error: HttpErrorResponse) {
+    console.error("An error was encountered during the 'Category' request.");
+    console.error(error);
+    this.failedLoading = true;
+  }
+
+  addCategory() {
+    this.router.navigate(["/", "inventory", "categories" , "add"]);
+  }
 
   editCategory(categoryId: number) {
     this.router.navigate(["/", "inventory", "categories" , "edit", categoryId]);

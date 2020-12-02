@@ -1,4 +1,10 @@
 <div class="sub-page" style="padding: 0.75rem">
+  <div class="columns">
+    <div class="column">
+      <button mat-raised-button style="width: 100%;" (click)="addCategory()">Add Category</button>
+    </div>
+  </div>
+  <mat-progress-spinner *ngIf="!failedLoading" mode="indeterminate"></mat-progress-spinner>
     <div class="columns is-1-mobile is-6-desktop">
       <list-card *ngFor="let category of categoryListDtos"
           class="column"
