@@ -29,12 +29,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-    console.log(this.productListDtos)
-    this.productListSub = this.productService.getProductListDto()
-    .subscribe(
+    this.productListSub = this.productService.getProductListDto().subscribe(
       response => {
         this.productListDtos = response;
-        console.log(this.productListDtos);
       },
       error => {
         this.onRetrievalError(error)
@@ -43,7 +40,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.productListSub.unsubscribe();
+    if(this.productListSub) {
+      this.productListSub.unsubscribe();
+    }
   }
 
   onRetrievalError(error: HttpErrorResponse) {
@@ -52,6 +51,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.failedLoading = true;
   }
   
+  addProduct() {
+    this.router.navigate(["/", "inventory", "products" , "add"]);
+  }
 
   editProduct(productId: number) {
     this.router.navigate(["/", "inventory", "products" , "edit", productId]);
@@ -59,6 +61,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   showProductDetails(productId: number) {
     this.router.navigate(["/", "inventory", "products", productId]);
+  }
+
+  showCategoryDetails(categoryId: number) {
+    this.router.navigate(['/', 'inventory', 'categories', categoryId]);
   }
 
 }

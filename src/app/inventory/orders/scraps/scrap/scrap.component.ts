@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/internal/operators/tap';
 import { ScrapDetailsDto } from 'src/app/models/complex-types/scrap-details.dto';
 import { ProductService } from 'src/app/services/product.service';
-import { ScrapService } from 'src/app/services/scrap.service';
+import { ScrapOrdersService } from 'src/app/services/scrap.service';
 import { CreateProductDialog } from 'src/app/shared/dialogs/create-item/create-product-dialog/create-product-dialog';
 @Component({
   selector: 'app-scrap',
   templateUrl: './scrap.component.html',
   styleUrls: ['./scrap.component.scss']
 })
-export class ScrapComponent implements OnInit {
+export class ScrapComponent implements OnInit, OnDestroy {
 
   routeSubscription : Subscription;
 
@@ -24,22 +25,31 @@ export class ScrapComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private scrapService: ScrapService,
+    private scrapService: ScrapOrdersService,
     private productService: ProductService,
   ) { }
 
   ngOnInit(): void {
     this.routeSubscription = this.route.params.subscribe(params => {
       const id = +params["id"];
-      this.scrapDetailsSub = this.scrapService.getScrapDetailsById(id).subscribe(scrapDetails => {
-        this.scrapDetails = scrapDetails;
-      });
+      if(id) {
+        this.scrapDetailsSub = this.scrapService.getScrapDetailsDto(id).pipe(
+          tap(
+            (scrapDetails => {
+              this.scrapDetails = scrapDetails
+            }),
+            (err => console.log(err))
+          )
+        ).subscribe();
+      }
     });
   }
 
   ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
-    this.scrapDetailsSub.unsubscribe();
+    if(this.scrapDetailsSub) {
+      this.scrapDetailsSub.unsubscribe();
+    }
   }
 
   navigate(uri: string) {
@@ -49,9 +59,9 @@ export class ScrapComponent implements OnInit {
 
   openDialog(): void {
 
-    this.createProductDialogSub = this.productService.getProductById(this.scrapDetails.ProductId).subscribe(
+    this.createProductDialogSub = this.productService.getProductById(this.scrapDetails.productId).subscribe(
       p => {
-        let dialogRef = this.dialog.open(CreateProductDialog, {
+        const dialogRef = this.dialog.open(CreateProductDialog, {
           width: '300px',
           data: p,
         });

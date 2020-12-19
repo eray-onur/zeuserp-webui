@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,20 +7,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ReplenishmentDetailsDto } from 'src/app/models/complex-types/replenishment-details.dto';
 import { Product } from 'src/app/models/product.model';
 import { Location } from 'src/app/models/location.model';
-import { ReplenishmentDetailsService } from 'src/app/services/inventory/replenishments/replenishment-details.service';
+import { OrderReplenishmentService } from 'src/app/services/order-replenishment.service';
 import { LocationService } from 'src/app/services/location.service';
 import { ProductService } from 'src/app/services/product.service';
+import { Subscription } from 'rxjs';
+import { ReplenishmentListDto } from 'src/app/models/complex-types/replenishment-list.dto';
 
 @Component({
   selector: 'app-replenishments',
   templateUrl: './replenishments.component.html',
   styleUrls: ['./replenishments.component.scss']
 })
-export class ReplenishmentsComponent implements OnInit, AfterViewInit {
+export class ReplenishmentsComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  replenishmentDetailsDto: Array<ReplenishmentDetailsDto>;
+  replenishmentListDto: Array<ReplenishmentListDto>;
+  replenishmentListSub: Subscription;
+
   products: Array<Product> = new Array<Product>();
+  productsSub: Subscription;
+
   locations: Array<Location> = new Array<Location>();
+  locationsSub: Subscription;
 
   displayedColumns: string[] = ['productName', 'locationName', 'onHandQuantity', 'orderedQuantity'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -29,22 +36,34 @@ export class ReplenishmentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(
-    private productService: ProductService,
-    private locationService: LocationService, 
-    private replenishmentDetailsService: ReplenishmentDetailsService,
+      private productService: ProductService,
+      private locationService: LocationService,
+      private replenishmentDetailsService: OrderReplenishmentService,
     ) {
-    this.replenishmentDetailsDto = this.replenishmentDetailsService.getAll();
-    this.products = this.productService.getAllProducts();
-    this.locations = this.locationService.getAll();
+        this.replenishmentListSub = this.replenishmentDetailsService.getReplenishmentList().subscribe(r => {
+          this.replenishmentListDto = r;
+        });
+        this.productsSub = this.productService.getAllProducts().subscribe(p => {
+          this.products = p;
+        });
+        this.locationsSub = this.locationService.getAllLocations().subscribe(l => {
+          this.locations = l;
+        });
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.replenishmentDetailsService.getAll());
+    this.dataSource = new MatTableDataSource(this.replenishmentListDto);
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  ngOnDestroy(): void {
+    this.productsSub.unsubscribe();
+    this.locationsSub.unsubscribe();
+    this.replenishmentListSub.unsubscribe();
   }
 
   applyFilter(filterValue: string) {

@@ -1,88 +1,41 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { endpoints } from '../inventory/inventory.endpoints';
+import { WarehouseDetailsDto } from '../models/complex-types/warehouse-details.dto';
+import { WarehouseListDto } from '../models/complex-types/warehouse-list.dto';
 import { Warehouse } from '../models/warehouse.model';
 
 @Injectable({ providedIn: 'root' })
 export class WarehouseService {
-    warehouses: Array<Warehouse>;
 
-    constructor() {
-        this.warehouses = new Array<Warehouse>();
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+    })
+  };
 
-        const exampleWarehouse: Warehouse = {
-            id: 1,
-            warehouseCode: 'ZE_01',
-            name: 'Zeus Main Stock',
-            hasLimitedStockCount: true,
-            stockLimit: 3000,
-            usedForManufacture: true,
-            locationId: 1,
-        }
-        const exampleWarehouseTwo: Warehouse = {
-            id: 2,
-            warehouseCode: 'ZE_01',
-            name: 'Zeus Main Stock',
-            hasLimitedStockCount: true,
-            stockLimit: 3000,
-            usedForManufacture: true,
-            locationId: 1,
-        }
-        const exampleWarehouseThree: Warehouse = {
-            id: 3,
-            warehouseCode: 'ZE_01',
-            name: 'Zeus Secondary Stock',
-            hasLimitedStockCount: true,
-            stockLimit: 3000,
-            usedForManufacture: true,
-            locationId: 1,
-        }
-        const exampleWarehouseFour: Warehouse = {
-            id: 4,
-            warehouseCode: 'ZE_01',
-            name: 'Zeus Main Stock',
-            hasLimitedStockCount: true,
-            stockLimit: 3000,
-            usedForManufacture: true,
-            locationId: 1,
-        }
-        const exampleWarehouseFive: Warehouse = {
-            id: 5,
-            warehouseCode: 'ZE_01',
-            name: 'Zeus Main Stock',
-            hasLimitedStockCount: true,
-            stockLimit: 3000,
-            usedForManufacture: true,
-            locationId: 1,
-        }
-        const exampleWarehouseSix: Warehouse = {
-            id: 6,
-            warehouseCode: 'ZE_01',
-            name: 'Zeus Main Stock',
-            hasLimitedStockCount: true,
-            stockLimit: 3000,
-            usedForManufacture: true,
-            locationId: 1,
-        }
-
-        this.warehouses.push(
-            exampleWarehouse, 
-            exampleWarehouseTwo, 
-            exampleWarehouseThree, 
-            exampleWarehouseFour, 
-            exampleWarehouseFive, 
-            exampleWarehouseSix
-        );
-    }
-
-    getAll(): Array<Warehouse> {
-        return this.warehouses;
-    }
-
-    getWarehouseById(warehouseId: number) {
-        return this.warehouses.find(w => w.id === warehouseId);
-    }
-
-    add(item: Warehouse): void {
-        this.warehouses.push(item);
-    }
-
+  constructor(private http: HttpClient) {
+  }
+  getWarehouseById(id: number): Observable<Warehouse> {
+    return this.http.get<Warehouse>(`${endpoints.root}/${endpoints.warehouseEndpoints.getAsync}/${id}`);
+  }
+  getAllWarehouses(): Observable<Array<Warehouse>> {
+    return this.http.get<Array<Warehouse>>(`${endpoints.root}/${endpoints.warehouseEndpoints.getAllAsync}`);
+  }
+  getWarehouseDetailsDto(id: number): Observable<WarehouseDetailsDto> {
+    return this.http.get<WarehouseDetailsDto>(`${endpoints.root}/${endpoints.warehouseEndpoints.getWarehousesDetailsDtoAsync}/${id}`);
+  }
+  getWarehouseListDto(): Observable<Array<WarehouseListDto>> {
+    return this.http.get<Array<WarehouseListDto>>(`${endpoints.root}/${endpoints.warehouseEndpoints.getWarehousesListDtoAsync}`);
+  }
+  add(warehouse: Warehouse): Observable<any> {
+    return this.http.post<Warehouse>(`${endpoints.root}/${endpoints.warehouseEndpoints.addAsync}`, warehouse, this.httpOptions);
+  }
+  update(warehouse: Warehouse): Observable<any> {
+    return this.http.put<Warehouse>(`${endpoints.root}/${endpoints.warehouseEndpoints.updateAsync}/${warehouse.id}`, warehouse);
+  }
+  delete(id: number): Observable<any> {
+    return this.http.delete<Warehouse>(`${endpoints.root}/${endpoints.warehouseEndpoints.deleteAsync}/${id}`);
+  }
 }

@@ -1,11 +1,11 @@
-import { BillOfMaterialComponents } from '../bom-components.model';
+import { BillOfMaterialComponent } from '../bom-component.model';
 
 export interface BomDetailsDto {
-    bomId: number;
+    id: number;
+    reference: string;
     productId: number;
     productName: string;
-    bomType: string;
-    components: Array<BillOfMaterialComponents>;
-    version: string;
-    flexibleConsumption: number;
+    bomType: number;
+    quantity: number;
+    bomComponents: Array<BillOfMaterialComponent>;
 }

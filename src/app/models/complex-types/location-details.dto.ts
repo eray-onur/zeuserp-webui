@@ -1,13 +1,13 @@
 export interface LocationDetailsDto {
-    locationId?: number;
+    id?: number;
     locationName: string;
-    locationCode: string;
-    addressId?: number,
-    addressName: string;
-    isInternal?: boolean
+    locationCode?: string;
+    locationTypeId: number;
+    addressId?: number;
+    addressTitle?: string;
     parentLocationId?: number;
     parentLocationName?: string;
-    locationType: string;
+    isInternalLocation?: boolean;
     isScrapLocation?: boolean;
     isReturnLocation?: boolean;
     externalNote?: string;

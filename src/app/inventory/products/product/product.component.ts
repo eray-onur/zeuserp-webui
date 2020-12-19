@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { tap } from 'rxjs/internal/operators/tap';
 import { ProductDetailsDto } from 'src/app/models/complex-types/product-details.dto';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
@@ -12,14 +14,17 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductComponent implements OnInit, OnDestroy {
 
-  paramsSubscription : Subscription;
+  hasFailed: boolean = false;
+
+  paramsSubscription: Subscription;
 
   productDetails: ProductDetailsDto;
+  productDetailsSub: Subscription;
 
   profileImageUrl: string;
 
   @Input()
-  showDetails: boolean = true;
+  showDetails = true;
 
   constructor(
     private router: Router,
@@ -29,17 +34,45 @@ export class ProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paramsSubscription = this.route.params.subscribe(params => {
       const id = +params["id"];
-      this.productDetails = this.productService.getProductDetailsDto(id);
+      this.productDetailsSub = this.productService.getProductDetailsDto(id)
+      .pipe(
+        tap(
+          data => { this.productDetails = data; console.log(data) },
+          error => this.catchProductDetailsError(error)
+        )
+      )
+      .subscribe();
     });
   }
 
   ngOnDestroy(): void {
-    this.paramsSubscription.unsubscribe();
+    if(this.paramsSubscription) {
+      this.paramsSubscription.unsubscribe();
+    }
+    if(this.productDetailsSub) {
+      this.productDetailsSub.unsubscribe();
+    }
+
   }
 
-  navigate(uri: string) {
-    console.log('Called route is: ', uri);
-    this.router.navigate([uri]);
+  navigate(uris) {
+    console.log("Navigation: ", uris);
+    this.router.navigate(uris);
+  }
+
+  deleteProduct() {
+    this.productService.delete(this.productDetails.productId).pipe(
+      tap(
+        data => { console.log(data); },
+        err => { console.error(err); }
+      )
+    ).subscribe();
+    
+  }
+
+  catchProductDetailsError(err: string) {
+    console.warn("An error was encountered during product details fetch operation:");
+    console.error(err);
   }
 
 }

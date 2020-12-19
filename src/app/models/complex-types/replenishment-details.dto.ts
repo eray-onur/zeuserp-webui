@@ -1,5 +1,5 @@
 export interface ReplenishmentDetailsDto {
-    id: number;
+    id?: number;
     productId?: number;
     productName?: string;
     locationId?: number;

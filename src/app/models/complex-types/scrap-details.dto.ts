@@ -1,20 +1,17 @@
-export interface ScrapDetailsDto {
-    ScrapId: number;
-    ScrapOrderCode: string;
-    ScrapOrderDescription: string,
-    ProductId: number;
-    ProductName: string;
-    ScrappedQuantity: number;
-    ScheduledDate: Date;
-    CompletedDate: Date;
-    SourceLocationId: number;
-    SourceLocationName: string;
-    ScrapLocationId: number;
-    ScrapLocationName: string;
-    ScrapStatus: ScrapStatus;
-}
+import { OrderStatus } from "../enums/order-status.enum";
 
-enum ScrapStatus {
-    DRAFT = 0,
-    DONE = 1,
+export interface ScrapDetailsDto {
+    scrapId: number;
+    orderReference: string;
+    orderDescription: string,
+    productId: number;
+    productName: string;
+    quantity: number;
+    scheduledDate: Date;
+    completedDate: Date;
+    sourceLocationId: number;
+    sourceLocationName: string;
+    scrapLocationId: number;
+    scrapLocationName: string;
+    scrapStatus: OrderStatus;
 }

@@ -1,12 +1,12 @@
 export interface Contact {
-  id: number,
-  name: string,
-  surname: string,
-  companyId: number,
-  jobPosition: string,
-  emailAddress: string,
-  phoneNumber: string,
-  websiteLink: string,
-  photoPath: string,
-  extraInto: string
+  id?: number;
+  name: string;
+  surname: string;
+  companyName?: string;
+  jobPosition?: string;
+  emailAddress?: string;
+  phoneNumber?: string;
+  websiteLink?: string;
+  photoPath?: string;
+  extraInfo?: string;
 }

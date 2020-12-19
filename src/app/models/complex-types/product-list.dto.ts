@@ -1,20 +1,20 @@
 import { ProductDetailsDto } from './product-details.dto';
 
 export interface ProductListDto {
-    ProductId: number;
-    ProductName: string;
-    CategoryId: number;
-    CategoryName: string;
-    Description: string;
-    CanBePurchased: boolean;
-    CanBeSold: boolean;
-    ProductQuantity: number;
-    ProductCost: number;
-    ProductPrice: number;
-    ImagePath: string;
-    ProductType: string;
-    ResponsibleId: number;
-    ResponsibleName: string;
-    Volume: number;
-    Weight: number;
+    productId: number;
+    productName: string;
+    categoryId: number;
+    categoryName: string;
+    description: string;
+    canBePurchased: boolean;
+    canBeSold: boolean;
+    productQuantity: number;
+    productCost: number;
+    productPrice: number;
+    imagePath: string;
+    productType: string;
+    responsibleId: number;
+    responsibleName: string;
+    volume: number;
+    weight: number;
 }

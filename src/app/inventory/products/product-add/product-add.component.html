@@ -10,12 +10,22 @@
             </form-element-container>
               <div>
                 <form-element-container>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Category</mat-label>
+                        <mat-select [formControl]="this.productForm.get('categoryId')">
+                          <mat-option *ngFor="let category of categories" [value]="category['id']">
+                            {{category['name']}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </form-element-container>
+                <form-element-container>
                     <p class="mat-body-strong column">Can Be Purchased</p>
-                    <mat-checkbox class="column"></mat-checkbox>
+                    <mat-checkbox class="column" [formControl]="this.productForm.get('canBePurchased')"></mat-checkbox>
                 </form-element-container>
                 <form-element-container>
                     <p class="mat-body-strong column">Can Be Sold</p>
-                    <mat-checkbox class="column"></mat-checkbox>
+                    <mat-checkbox class="column" [formControl]="this.productForm.get('canBeSold')"></mat-checkbox>
                 </form-element-container>
               </div>
               <mat-tab-group dynamicHeight>

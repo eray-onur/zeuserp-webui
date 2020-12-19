@@ -25,6 +25,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { MasterComponent } from './master/master.component';
 import { InventoryComponent } from './inventory/inventory.component';
@@ -37,7 +38,6 @@ import { OrdersComponent } from './inventory/orders/orders.component';
 import { OrderAddComponent } from './inventory/orders/order-add/order-add.component';
 import { LocationsComponent } from './inventory/locations/locations.component';
 import { ContactsComponent } from './inventory/contacts/contacts.component';
-import { ProductGeneralInfoComponent } from './inventory/products/product-general-info/product-general-info.component';
 import { ProductsComponent } from './inventory/products/products.component';
 import { ReplenishmentsComponent } from './inventory/orders/replenishments/replenishments.component';
 import { DeliveriesComponent } from './inventory/orders/deliveries/deliveries.component';
@@ -60,11 +60,13 @@ import { DetailActionComponent } from './shared/cards/detail-card/detail-action/
 import { DetailCardHeaderComponent } from './shared/cards/detail-card/detail-card-header/detail-card-header.component';
 import { TextDetailsComponent } from './shared/text-details/text-details.component';
 import { EditTextDetailsComponent } from './shared/edit-text-details/edit-text-details.component';
+
+// tslint:disable-next-line: max-line-length
 import { DetailSecondaryHeaderComponent } from './shared/cards/detail-card/detail-card-header/detail-secondary-header/detail-secondary-header.component';
 import { ListCardComponent } from './shared/cards/list-card/list-card.component';
 import { FormElementContainerComponent } from './shared/form-element-container/form-element-container.component';
 import { ProcessCardComponent } from './shared/cards/process-card/process-card.component';
-import { ScrapService } from './services/scrap.service';
+import { ScrapOrdersService } from './services/scrap.service';
 import { ManufacturingComponent } from './manufacturing/manufacturing.component';
 import { ItemSelectComponent } from './shared/item-select/item-select.component';
 import { ReplenishmentsAddComponent } from './inventory/orders/replenishments/replenishments-add/replenishments-add.component';
@@ -91,7 +93,6 @@ import { HttpClientModule } from '@angular/common/http';
     OrderAddComponent,
     LocationsComponent,
     ContactsComponent,
-    ProductGeneralInfoComponent,
     ProductsComponent,
     ReplenishmentsComponent,
     DeliveriesComponent,
@@ -142,6 +143,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatTabsModule,
     MatCheckboxModule,
@@ -165,9 +167,6 @@ import { HttpClientModule } from '@angular/common/http';
     MatProgressSpinnerModule,
   ],
   providers: [
-    ProductService,
-    WarehouseService,
-    ScrapService,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -3,7 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { WarehouseLocationDto } from 'src/app/models/complex-types/warehouse-location.dto';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/internal/operators/tap';
+import { WarehouseListDto } from 'src/app/models/complex-types/warehouse-list.dto';
 import { Warehouse } from 'src/app/models/warehouse.model';
 import { LocationService } from 'src/app/services/location.service';
 import { WarehouseService } from 'src/app/services/warehouse.service';
@@ -18,41 +20,40 @@ import { Location } from './../../models/location.model';
 export class WarehousesComponent implements OnInit, AfterViewInit {
 
 
-  displayedColumns: string[] = ['id', 'name', 'warehouseCode', 'locationReference', 'details'];
-  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  warehouseListDto: Array<WarehouseListDto>;
+  warehouseListDtoSub: Subscription;
+
+
+  displayedColumns: string[] = ['warehouseId', 'warehouseCode', 'warehouseName', 'locationReference', 'details'];
+  dataSource: MatTableDataSource<WarehouseListDto> = new MatTableDataSource();
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  warehousesDto: Array<WarehouseLocationDto>;
-
   constructor(
     private warehouseService: WarehouseService, 
-    private locationService: LocationService,
     private router: Router,
     private route: ActivatedRoute) {
-      this.warehousesDto = new Array<WarehouseLocationDto>();
-      const warehouses = this.warehouseService.getAll();
-      warehouses.forEach(w => {
-        let location: Location = this.locationService.getById(w.locationId);
-        let warehouseDto: WarehouseLocationDto = {
-          ...w,
-          locationId: location.id,
-          locationName: location.name
-        }
-        this.warehousesDto.push(warehouseDto);
-        console.log(warehouseDto);
-      });
+      
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.warehouseService.getAll());
+    this.warehouseListDtoSub = this.warehouseService.getWarehouseListDto()
+    .pipe(
+      tap(
+        data => {
+          console.log(data);
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        err => console.error(err)
+      )
+    ).subscribe();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    console.log(this.paginator);
+
   }
 
   applyFilter(filterValue: string) {
@@ -64,15 +65,15 @@ export class WarehousesComponent implements OnInit, AfterViewInit {
   }
 
   navigateToLocation(id: number) {
-    this.router.navigate(['/','inventory', 'locations', id]);
+    this.router.navigate(['/', 'inventory', 'locations', id.toString()]);
   }
 
   navigateToWarehouse(id: number) {
-    this.router.navigate([id], {relativeTo: this.route});
+    this.router.navigate(['/', 'inventory', 'warehouses', id.toString()]);
   }
 
   navigateToEditWarehouse(id: number) {
-    this.router.navigate(['edit', id], {relativeTo: this.route});
+    this.router.navigate(['/', 'inventory', 'warehouses', 'edit', id.toString()]);
   }
 
 }

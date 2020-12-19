@@ -1,10 +1,13 @@
 export interface Location {
-  id?: number,
-  name: string,
-  locationCode?: string,
-  locationTypeId: number,
-  addressId?: number,
-  isInternal?: boolean,
-  isScrap?: boolean,
-  isReturn?: boolean,
+  id?: number;
+  name: string;
+  code?: string;
+  locationTypeId: number;
+  addressId?: number;
+  parentLocationId?: number;
+  isInternalLocation?: boolean;
+  isScrapLocation?: boolean;
+  isReturnLocation?: boolean;
+  externalNote?: string;
+  stockId?: number;
 }

@@ -8,7 +8,7 @@
                 </detail-card-header>
                 <div>
                     <form-element-container>
-                        <p class="mat-body-strong column">Name</p>
+                        <p class="mat-body-strong column">Location Name</p>
                         <mat-form-field class="column">
                             <input matInput placeholder="Location Name" [formControl]="this.locationForm.get('name')" required>
                         </mat-form-field>
@@ -16,13 +16,22 @@
                     <form-element-container>
                         <p class="mat-body-strong column">Location Code</p>
                         <mat-form-field class="column">
-                            <input matInput placeholder="Location Code" [formControl]="this.locationForm.get('locationCode')" required>
+                            <input matInput placeholder="Location Code" [formControl]="this.locationForm.get('code')" required>
                         </mat-form-field>
-
+                    </form-element-container>
+                    <form-element-container>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Location Address</mat-label>
+                            <mat-select [formControl]="this.locationForm.get('addressId')">
+                              <mat-option *ngFor="let address of addresses" [value]="address['id']">
+                                {{address['title']}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
                     </form-element-container>
                     <form-element-container>
                         <p class="mat-body-strong column">Is Internal</p>
-                        <mat-checkbox class="column" [formControl]="this.locationForm.get('isInternal')"></mat-checkbox>
+                        <mat-checkbox class="column" [formControl]="this.locationForm.get('isInternalLocation')"></mat-checkbox>
                     </form-element-container>
                     <form-element-container>
                         <p class="mat-body-strong column">Is Scrap Location</p>
@@ -35,10 +44,6 @@
                 </div>
                 <mat-tab-group dynamicHeight>
                     <mat-tab label="General Information">
-                        <!-- <app-text-details label="Parent Location" [data]="this.locationDetails.parentLocationName"></app-text-details> -->
-                        <!-- <app-text-details label="Product Type" [data]="this.productDetails.ProductType"></app-text-details>
-                        <app-text-details label="Unit Price" [data]="this.productDetails.ProductPrice"></app-text-details>
-                        <app-text-details label="Unit Cost" [data]="this.productDetails.ProductCost"></app-text-details> -->
                     </mat-tab>
                 </mat-tab-group>
                 <form-element-container style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">

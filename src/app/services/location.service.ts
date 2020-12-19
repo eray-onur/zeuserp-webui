@@ -1,4 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { endpoints } from '../inventory/inventory.endpoints';
 import { LocationDetailsDto } from '../models/complex-types/location-details.dto';
 import { LocationListDto } from '../models/complex-types/location-list.dto';
 import { Location } from './../models/location.model';
@@ -7,90 +10,35 @@ import { Location } from './../models/location.model';
 })
 export class LocationService {
 
-    locations: Array<Location>;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+    })
+  };
 
-    constructor() {
+  constructor(private http: HttpClient) {
+  }
+  getLocationById(id: number): Observable<Location> {
+    return this.http.get<Location>(`${endpoints.root}/${endpoints.locationEndpoints.getAsync}/${id}`);
+  }
+  getAllLocations(): Observable<Array<Location>> {
+    return this.http.get<Array<Location>>(`${endpoints.root}/${endpoints.locationEndpoints.getAllAsync}`);
+  }
+  getLocationDetailsDto(id: number): Observable<LocationDetailsDto> {
+    return this.http.get<LocationDetailsDto>(`${endpoints.root}/${endpoints.locationEndpoints.getLocationDetailsDtoAsync}/${id}`);
+  }
+  getLocationListDto(): Observable<Array<LocationListDto>> {
+    return this.http.get<Array<LocationListDto>>(`${endpoints.root}/${endpoints.locationEndpoints.getLocationListDtoAsync}`);
+  }
+  add(location: Location): Observable<any> {
+    return this.http.post<Location>(`${endpoints.root}/${endpoints.locationEndpoints.addAsync}`, location, this.httpOptions);
+  }
 
-        this.locations = new Array<Location>();
+  update(location: Location): Observable<any> {
+    return this.http.put<Location>(`${endpoints.root}/${endpoints.locationEndpoints.updateAsync}/${location.id}`, location);
+  }
 
-        const locationOne: Location = {
-            id: 1,
-            name: 'Example Location #1',
-            locationCode: 'LO_EX01',
-            locationTypeId: 1,
-            addressId: 1,
-            isInternal: true,
-        }
-        
-        const locationTwo: Location = {
-            id: 2,
-            name: 'Example Location #2',
-            locationCode: 'LO_EX02',
-            locationTypeId: 1,
-            addressId: 2,
-            isInternal: false,
-        }
-
-        this.locations.push(locationOne, locationTwo);
-
-    }
-
-    add(location: Location): void {
-        this.locations.push(location);
-    }
-
-    getAll(): Array<Location> {
-        return this.locations;
-    }
-
-    getById(id: number): Location {
-        return this.locations.find(l => l.id === id);
-    }
-
-    getLocationDetailsById(id: number): LocationDetailsDto {
-        var locDetails : LocationDetailsDto = {
-            locationId: id,
-            locationName: "Ergene Vadisi C7 D8",
-            locationCode: "EV C7 D8",
-            addressId: 1,
-            addressName: 'Ergene Vadisi',
-            locationType: 'Ev',
-        };
-
-        return locDetails;
-    }
-
-    getLocationListDto(): Array<LocationListDto> {
-        const locationOne: Location = {
-            id: 1,
-            name: 'Example Location #1',
-            locationCode: 'LO_EX01',
-            locationTypeId: 1,
-            addressId: 1,
-            isInternal: true,
-        }
-        
-        const locationTwo: Location = {
-            id: 2,
-            name: 'Example Location #2',
-            locationCode: 'LO_EX02',
-            locationTypeId: 1,
-            addressId: 2,
-            isInternal: false,
-        }
-
-        const locationListDtoOne: LocationListDto = {
-            locationId: locationOne.id,
-            locationName: locationOne.name,
-            locationTypeName: locationOne.locationCode
-        };
-
-        const locationListDtoTwo: LocationListDto = {
-            locationId: locationTwo.id,
-            locationName: locationTwo.name,
-            locationTypeName: locationTwo.locationCode
-        };
-
-        return [locationListDtoOne, locationListDtoTwo];
-    }
+  delete(id: number):  Observable<any> {
+    return this.http.delete<Location>(`${endpoints.root}/${endpoints.locationEndpoints.deleteAsync}/${id}`);
+  }
 }

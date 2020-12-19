@@ -24,6 +24,8 @@ import { ReplenishmentsAddComponent } from './orders/replenishments/replenishmen
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './categories/category/category.component';
 import { CategoryAddComponent } from './categories/category-add/category-add.component';
+import { ContactComponent } from './contacts/contact/contact.component';
+import { ContactAddComponent } from './contacts/contact-add/contact-add.component';
 
 const inventoryRoutes: Routes = [
   { path: '', component: InventoryComponent,
@@ -78,9 +80,9 @@ const inventoryRoutes: Routes = [
       {
         path: 'addresses',
         children: [
-          { path: ':id', component: AddressComponent },
           { path: 'add', component: AddressAddComponent },
-          { path: 'edit/:id', component: AddressComponent },
+          { path: 'edit/:id', component: AddressAddComponent },
+          { path: ':id', component: AddressComponent },
         ],
       },
       {
@@ -96,9 +98,9 @@ const inventoryRoutes: Routes = [
       {
         path: 'warehouses',
         children: [
-          { path: ':id', component: WarehouseComponent },
-          { path: '', component: WarehousesComponent},
+          { path: '', component: WarehousesComponent, pathMatch: 'full'},
           { path: 'add', component: WarehouseAddComponent },
+          { path: ':id', component: WarehouseComponent },
           { path: 'edit/:id', component: WarehouseAddComponent },
         ],
       },
@@ -106,6 +108,9 @@ const inventoryRoutes: Routes = [
         path: 'contacts',
         children: [
           { path: '', component: ContactsComponent, pathMatch: 'full' },
+          { path: 'add', component: ContactAddComponent },
+          { path: 'edit/:id', component: ContactAddComponent },
+          { path: ':id', component: ContactComponent },
         ],
       },
     ]

@@ -13,9 +13,10 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class LocationComponent implements OnInit, OnDestroy {
 
-  paramsSubscription : Subscription;
+  paramsSubscription: Subscription;
 
   locationDetails: LocationDetailsDto;
+  locationDetailsSub: Subscription;
 
   locationImageUrl: string;
 
@@ -30,7 +31,9 @@ export class LocationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paramsSubscription = this.route.params.subscribe(params => {
       const id = +params["id"];
-      this.locationDetails = this.locationService.getLocationDetailsById(id);
+      this.locationDetailsSub = this.locationService.getLocationDetailsDto(id).subscribe(l => {
+        this.locationDetails = l;
+      });
     });
   }
 
@@ -38,8 +41,8 @@ export class LocationComponent implements OnInit, OnDestroy {
     this.paramsSubscription.unsubscribe();
   }
 
-  navigate(uri: string) {
-    this.router.navigate([uri]);
+  navigate(uri: string[]) {
+    this.router.navigate(uri);
   }
 
 }
