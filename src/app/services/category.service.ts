@@ -1,46 +1,44 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { endpoints } from '../inventory/inventory.endpoints';
 import { Category } from '../models/category.model';
 import { CategoryDetailsDto } from '../models/complex-types/category-details.dto';
 import { CategoryListDto } from '../models/complex-types/category-list.dto';
-import { endpoints } from '../utils/keywords/endpoints.util';
 
 @Injectable({providedIn: 'root'})
 export class CategoryService {
 
+    httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      })
+    };
+
     constructor(private http: HttpClient) {
-
     }
-
-    getCategoryListDto(): Observable<Array<CategoryListDto>> {
-        console.log('list');
-        return this.http.get<Array<CategoryListDto>>(`${endpoints.rootEndpoint}/${endpoints.categoryEndpoints.getAll}`);
+    getCategoryById(id: number): Observable<Category> {
+      return this.http.get<Category>(`${endpoints.root}/${endpoints.categoryEndpoints.getAsync}/${id}`);
     }
-
+    getAllCategories(): Observable<Array<Category>> {
+      return this.http.get<Array<Category>>(`${endpoints.root}/${endpoints.categoryEndpoints.getAllAsync}`);
+    }
     getCategoryDetailsDto(id: number): Observable<CategoryDetailsDto> {
-        return this.http.get<CategoryDetailsDto>(`${endpoints.rootEndpoint}/${endpoints.categoryEndpoints.get}/${id}`);
+      return this.http.get<CategoryDetailsDto>(`${endpoints.root}/${endpoints.categoryEndpoints.getCategoryDetailsDtoAsync}/${id}`);
     }
-
-    getById(id: number): Observable<Category> {
-        return this.http.get<Category>(`${endpoints.rootEndpoint}/${endpoints.categoryEndpoints.get}/${id}`);
+    getCategoryListDto(): Observable<Array<CategoryListDto>> {
+      return this.http.get<Array<CategoryListDto>>(`${endpoints.root}/${endpoints.categoryEndpoints.getCategoryListDtoAsync}`);
     }
-
-    getAll(): Observable<Array<Category>> {
-        return this.http.get<Array<Category>>(`${endpoints.rootEndpoint}/${endpoints.categoryEndpoints.getAll}`);
-    }
-
     add(category: Category): Observable<any> {
-        console.log("About to add a category.");
-        return this.http.post<Category>(`${endpoints.rootEndpoint}/${endpoints.categoryEndpoints.add}`, category);
+      console.log(category);
+      return this.http.post<Category>(`${endpoints.root}/${endpoints.categoryEndpoints.addAsync}`, category, this.httpOptions);
     }
-
-    update(category: Category) {
-
+  
+    update(category: Category): Observable<any> {
+      return this.http.put<Category>(`${endpoints.root}/${endpoints.categoryEndpoints.updateAsync}/${category.id}`, category);
     }
-
-    remove(category: Category) {
-
+  
+    delete(id: number):  Observable<any> {
+      return this.http.delete<Category>(`${endpoints.root}/${endpoints.categoryEndpoints.deleteAsync}/${id}`);
     }
-
 }

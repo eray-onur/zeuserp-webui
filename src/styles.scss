@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "./../node_modules/bulma/css/bulma.css";
+@import "./assets/bulma.css";
 button {
   text-align: center;
 }
@@ -48,6 +48,18 @@ p {
 .column {
   margin: 0;
   padding: 0;
+}
+
+.hyperlink {
+  color: #5DADE2;
+  cursor: pointer;
+
+  &-active {
+    color: #A569BD;
+  }
+  &:hover {
+    color: darkorange;
+  }
 }
 
 @import "./../node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css";

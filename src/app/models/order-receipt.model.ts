@@ -1,6 +1,7 @@
 export interface OrderReceipt {
-  id: number,
-  receiveFromId: number,
-  scheduledDate: Date,
-  receiptOperationsId: number
+  id: number;
+  reference: string;
+  receiveFromId: number;
+  scheduledDate: Date;
+  receiptOperationsId: number;
 }

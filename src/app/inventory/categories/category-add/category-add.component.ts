@@ -13,13 +13,16 @@ import { Subscription } from 'rxjs';
   templateUrl: './category-add.component.html',
   styleUrls: ['./category-add.component.scss']
 })
-export class CategoryAddComponent implements  OnDestroy {
+export class CategoryAddComponent implements OnDestroy {
 
-  routeSub: Subscription; 
+  routeSub: Subscription;
 
+  categoryId: number;
   category: Category;
+
   categories: Array<Category>;
   categoriesSub: Subscription;
+
   categoryDetailsDto: CategoryDetailsDto;
   categoryDetailsSub: Subscription;
 
@@ -30,14 +33,15 @@ export class CategoryAddComponent implements  OnDestroy {
   inDialogMode: boolean = false;
 
   @Output()
-  onCategoryAdded: EventEmitter<Category> = new EventEmitter<Category>();
+  AddCategory: EventEmitter<Category> = new EventEmitter<Category>();
 
   @Output()
-  onDialogDiscard: EventEmitter<boolean> = new EventEmitter<boolean>();
+  DiscardDialog: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   categoryForm: FormGroup;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private categoryService: CategoryService,
     private formBuilder: FormBuilder
@@ -47,70 +51,83 @@ export class CategoryAddComponent implements  OnDestroy {
       description: [''],
       parentCategory: []
     });
-    this.categoriesSub = this.categoryService.getAll().subscribe(c => {
+
+    this.categoriesSub = this.categoryService.getAllCategories().subscribe(c => {
       this.categories = c;
     });
+
     this.routeSub = this.route.params.subscribe(p => {
       if(p["id"] !== undefined) {
         const id: number = +p["id"];
-        console.log("Category ID is: ", id);
+        this.categoryId = id;
+        console.log('Category ID is: ', id);
+
         this.categoryDetailsSub = this.categoryService
         .getCategoryDetailsDto(id).subscribe(c => {
+          // Get Category Details and patch inputs with the data.
           this.categoryDetailsDto = c;
+          this.categoryForm.patchValue({
+            parentCategory: this.categoryDetailsDto.parentCategoryId,
+            name: this.categoryDetailsDto.categoryName,
+            description: this.categoryDetailsDto.categoryDescription
+          });
         });
-        this.categoryForm.get("name").setValue(this.category.name);
-        this.categoryForm.get("description").setValue(this.category.description);
- 
-        const subId: number = this.category.subcategoryId;
-        if(this.categoryForm.get("parentCategory"))  {
-          this.categoryForm.get("parentCategory").setValue(subId);
-        }
-        
       }
     });
    }
 
   ngOnDestroy(): void {
-    if(this.inDialogMode) {
-      this.onCategoryAdded.unsubscribe();
+    if (this.inDialogMode) {
+      this.AddCategory.unsubscribe();
     }
-    if(this.routeSub) {
+    if (this.routeSub) {
       this.routeSub.unsubscribe();
     }
-    if(this.categoryDetailsSub) {
+    if (this.categoryDetailsSub) {
       this.categoryDetailsSub.unsubscribe();
     }
   }
 
 
-  navigate(uri: string) {
-    this.router.navigate([uri]);
+  navigate(uri: any) {
+    this.router.navigate(uri);
   }
 
   onSubmit() {
-    console.log("[Category] Name: " + this.categoryForm.get("name").value);
-    console.log("[Category] Description: " + this.categoryForm.get("description").value);
     const category: Category = {
-      name: this.categoryForm.get("name").value,
-      description: this.categoryForm.get("description").value,
-      subcategoryId: this.categoryForm.get("parentCategory").value ?? -1,
+      name: this.categoryForm.get('name').value,
+      description: this.categoryForm.get('description').value,
+      parentCategoryId: this.categoryForm.get('parentCategory').value,
     };
 
-    if(this.inDialogMode) {
-      this.onCategoryAdded.emit(category);
+    if(this.categoryId) {
+      category.id = this.categoryId;
+      console.log("Edit will be done.");
+
+      this.categoryService.update(category).subscribe(r => {
+        console.log(r);
+      });
     } else {
-      // Add product to db.
-      console.log("Category to Submit: ");
-      console.log(category);
+      console.log('[Category] Name: ' + this.categoryForm.get('name').value);
+      console.log('[Category] Description: ' + this.categoryForm.get('description').value);
+  
+  
+      if(this.inDialogMode) {
+        this.AddCategory.emit(category);
+      } else {
+        // Add product to db.
+        console.log('Category to Submit: ');
+        console.log(category);
+      }
+      this.categoryService.add(category).subscribe(r => {
+        console.log(r);
+      });
     }
-    this.categoryService.add(category).subscribe(r => {
-      console.log(r);
-    });
   }
 
   onDiscard() {
-    if(this.inDialogMode) {
-      this.onDialogDiscard.emit(true);
+    if (this.inDialogMode) {
+      this.DiscardDialog.emit(true);
     }
   }
 

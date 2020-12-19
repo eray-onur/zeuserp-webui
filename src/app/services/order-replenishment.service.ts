@@ -1,65 +1,42 @@
-// import { OrderReplenishment } from '../models/order-replenishment.model';
-// import { Injectable } from '@angular/core';
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class OrderReplenishmentService {
+import { OrderReplenishment } from '../models/order-replenishment.model';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { endpoints } from '../inventory/inventory.endpoints';
+import { ReplenishmentListDto } from '../models/complex-types/replenishment-list.dto';
+import { ReplenishmentDetailsDto } from '../models/complex-types/replenishment-details.dto';
+@Injectable({
+  providedIn: 'root'
+})
+export class OrderReplenishmentService {
 
-//   replenishmentOrders: Array<OrderReplenishment>;
+    constructor(private http: HttpClient) {
 
-//   constructor() {
-//     this.replenishmentOrders = new Array<OrderReplenishment>();
-//     const exampleOrder: OrderReplenishment = {
-//       id: 1,
-//       productId: 1,
-//       locationId: 1,
-//       onHandQuantity: 1,
-//       orderQuantity: 3,
-//     };
-//     const exampleOrderTwo: OrderReplenishment = {
-//       id: 2,
-//       productId: 1,
-//       locationId: 1,
-//       onHandQuantity: 1,
-//       forecastedQuantity: 1,
-//       minQuantity: 1,
-//       maxQuantity: 13,
-//       toOrder: 10,
-//     };
-//     const exampleOrderThree: OrderReplenishment = {
-//       id: 3,
-//       productId: 1,
-//       locationId: 1,
-//       onHandQuantity: 1,
-//       minQuantity: 1,
-//       maxQuantity: 28,
-//       toOrder: 3,
-//     };
-//     const exampleOrderFour: OrderReplenishment = {
-//       id: 4,
-//       productId: 1,
-//       locationId: 1,
-//       onHandQuantity: 1,
-//       minQuantity: 1,
-//       maxQuantity: 5,
-//       toOrder: 4,
-//     };
-//     this.replenishmentOrders.push(exampleOrder, exampleOrderTwo, exampleOrderThree, exampleOrderFour);
-//   }
+    }
 
-//   getAllProducts() : Array<ReplenishmentOrder> {
-//     console.log(this.replenishmentOrders);
-//     return this.replenishmentOrders;
-//   }
+    getReplenishmentById(id: number): Observable<OrderReplenishment> {
+        return this.http
+        .get<OrderReplenishment>(`${endpoints.root}/${endpoints.replenishmentEndpoints.getAsync}/${id}`);
+    }
 
-//   getProductById(id: number) : ReplenishmentOrder {
-//     console.log("Id is: " + id);
-//     return this.replenishmentOrders.find(o => o.id === id);
-//   }
+    getReplenishments(): Observable<Array<OrderReplenishment>> {
+        return this.http
+        .get<Array<OrderReplenishment>>(`${endpoints.root}/${endpoints.replenishmentEndpoints.getAllAsync}`);
+    }
 
-//   add(order: ReplenishmentOrder) : void {
-//     this.replenishmentOrders.push(order);
-//     console.log("New index of products array is: ", this.replenishmentOrders.length);
-//   }
+    getReplenishmentDetails(id: number): Observable<ReplenishmentDetailsDto> {
+        return this.http
+        .get<ReplenishmentDetailsDto>(`${endpoints.root}/${endpoints.replenishmentEndpoints.getReplenishmentOrdersDetailsDtoAsync}/${id}`);
+    }
 
-// }
+    getReplenishmentList(): Observable<Array<ReplenishmentListDto>> {
+        return this.http
+        .get<Array<ReplenishmentListDto>>(`${endpoints.root}/${endpoints.replenishmentEndpoints.getReplenishmentOrdersListDtoAsync}`);
+    }
+
+    addReplenishment(order: OrderReplenishment): void {}
+
+    update(order: OrderReplenishment): void {}
+
+    delete(id: number): void {}
+}

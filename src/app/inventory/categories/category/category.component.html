@@ -1,14 +1,14 @@
 <div>
-    <item-card-details>
+    <item-card-details *ngIf="categoryDetailsDto">
         <div body>
-            <detail-card-header 
-            [title]="categoryDetailsDto.categoryName"
+            <detail-card-header
+                [title]="categoryDetailsDto.categoryName"
             >
             </detail-card-header>
             <div>
                 <form-element-container>
                     <p class="mat-body-strong column">Parent Category</p>
-                    <a class="mat-body column" (click)="this.navigate('/inventory/categories/' + categoryDetailsDto.subcategoryId)">{{categoryDetailsDto.subcategoryName}}</a>
+                    <p class="mat-body column hyperlink" (click)="this.navigate('/inventory/categories/' + categoryDetailsDto.parentCategoryId)">{{categoryDetailsDto.parentCategoryName}}</p>
                 </form-element-container>
               </div>
               <mat-tab-group dynamicHeight>
@@ -23,27 +23,11 @@
               </mat-tab-group>
         </div>
         <div actions *ngIf="showDetails === true">
-            <!-- <item-detail-action 
-                title="Bill Of Materials"
+            <item-detail-action 
+                title="Archive Category"
                 iconName="list"
-                quantity=1
-                (navigateTo)="navigate('/manufacturing/products/boms')"
+                (navigateTo)="this.deleteCategory()"
             ></item-detail-action>
-            <item-detail-action 
-                title="On Hand Quantity"
-                [quantity]="productDetails.ProductQuantity"
-                iconName="edit"
-            ></item-detail-action>
-            <item-detail-action 
-                title="Edit Product"
-                iconName="add"
-                (navigateTo)="navigate('/inventory/products/edit/1')"
-            ></item-detail-action>
-            <item-detail-action 
-                title="Archive Product"
-                iconName="remove"
-                (navigateTo)="navigate('/inventory/products/edit/1')"
-            ></item-detail-action> -->
         </div>
     </item-card-details>
 </div>

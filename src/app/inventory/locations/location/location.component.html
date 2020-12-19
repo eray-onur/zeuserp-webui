@@ -7,8 +7,12 @@
             </detail-card-header>
             <div>
                 <form-element-container>
+                    <p class="mat-body-strong column">Location Address</p>
+                    <p class="mat-body column hyperlink" [textContent]="this.locationDetails.addressTitle" (click)="navigate(['/','inventory','addresses', this.locationDetails.addressId.toString()])"></p>
+                </form-element-container>
+                <form-element-container>
                     <p class="mat-body-strong column">Is Internal</p>
-                    <mat-checkbox class="column" [disabled]="true" [value]="this.locationDetails.isInternal"></mat-checkbox>
+                    <mat-checkbox class="column" [disabled]="true" [value]="this.locationDetails.isInternalLocation"></mat-checkbox>
                 </form-element-container>
                 <form-element-container>
                     <p class="mat-body-strong column">Is Scrap Location</p>
@@ -22,9 +26,6 @@
             <mat-tab-group dynamicHeight>
                 <mat-tab label="General Information">
                     <app-text-details label="Parent Location" [data]="this.locationDetails.parentLocationName"></app-text-details>
-                    <!-- <app-text-details label="Product Type" [data]="this.productDetails.ProductType"></app-text-details>
-                    <app-text-details label="Unit Price" [data]="this.productDetails.ProductPrice"></app-text-details>
-                    <app-text-details label="Unit Cost" [data]="this.productDetails.ProductCost"></app-text-details> -->
                 </mat-tab>
             </mat-tab-group>
         </div>

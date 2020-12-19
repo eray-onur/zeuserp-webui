@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CreateProductDialog } from './../../shared/dialogs/create-item/create-product-dialog/create-product-dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-master-page',
@@ -13,18 +14,21 @@ import { CreateProductDialog } from './../../shared/dialogs/create-item/create-p
 export class InventoryMenuComponent implements OnInit {
 
   products: Array<Product>;
+  productsSub: Subscription;
 
   name: string;
   animal: string;
 
 
 
-  constructor(public dialog: MatDialog,
+  constructor(
+    public dialog: MatDialog,
     private productService: ProductService,
-    private router: Router) { }
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
-    this.products = this.productService.getAllProducts();
+    //this.productsSub = this.productService.getAllProducts()
   }
 
   openNewProductDialog(product: Product): void {

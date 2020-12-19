@@ -1,11 +1,13 @@
 export interface OrderManufacturing {
-  id: number,
-  producedQuantity: number,
-  bomId: number,
-  scheduledDate: Date,
-  responsibleId: number,
-  usedComponentsId: number,
-  usedComponentsLocationId: number,
-  usedProductsLocationId: number,
-  orderStatus: OrderStatus
+  id: number;
+  reference: string;
+  productToManufactureId: number;
+  bomId: number;
+  quantityToManufacture: number;
+  quantityManufactured: number;
+  scheduledDate: Date;
+  responsibleId: number;
+  componentsId: number;
+  componentsLocationId: number;
+  finishedProductsLocationId: number;
 }
