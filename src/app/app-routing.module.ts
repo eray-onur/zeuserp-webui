@@ -22,7 +22,7 @@ const masterRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(masterRoutes)],
+  imports: [RouterModule.forRoot(masterRoutes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
