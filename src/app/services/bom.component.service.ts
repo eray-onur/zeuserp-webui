@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { endpoints } from '../manufacturing/manufacturing.endpoints';
 import { BillOfMaterials } from '../models/bom.model';
+import { BomComponentDto } from '../models/complex-types/bom-component.dto';
 import { BomDetailsDto } from '../models/complex-types/bom-details.dto';
 import { BomListDto } from '../models/complex-types/bom-list.dto';
 
 @Injectable({providedIn: 'root'})
-export class BomsService {
+export class BomComponentService {
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -17,17 +18,15 @@ export class BomsService {
 
   constructor(private http: HttpClient) {
   }
-  getBomById(id: number): Observable<BillOfMaterials> {
+  getBomComponentById(id: number): Observable<BillOfMaterials> {
     return this.http.get<BillOfMaterials>(`${endpoints.root}/${endpoints.bomEndpoints.getAsync}/${id}`);
   }
-  getAllBom(): Observable<Array<BillOfMaterials>> {
+  getAllBomComponents(): Observable<Array<BillOfMaterials>> {
     return this.http.get<Array<BillOfMaterials>>(`${endpoints.root}/${endpoints.bomEndpoints.getAllAsync}`);
   }
-  getBomDetailsDto(id: number): Observable<BomDetailsDto> {
-    return this.http.get<BomDetailsDto>(`${endpoints.root}/${endpoints.bomEndpoints.getBomDetailsDtoAsync}/${id}`);
-  }
-  getBomListDto(): Observable<Array<BomListDto>> {
-    return this.http.get<Array<BomListDto>>(`${endpoints.root}/${endpoints.bomEndpoints.getBomListDtoAsync}`);
+
+  getBomComponentDetailsDto(id: number): Observable<Array<BomDetailsDto>> {
+    return this.http.get<Array<BomDetailsDto>>(`${endpoints.root}/${endpoints.bomEndpoints.componentDetailsAsync}/${id}`);
   }
   add(bom: BillOfMaterials): Observable<any> {
     return this.http.post<BillOfMaterials>(`${endpoints.root}/${endpoints.bomEndpoints.addAsync}`, bom, this.httpOptions);

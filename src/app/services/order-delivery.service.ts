@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { endpoints } from '../inventory/inventory.endpoints';
@@ -11,6 +11,12 @@ export class DeliveryOrdersService {
     constructor(private http: HttpClient) {
 
     }
+
+    httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+        })
+      };
 
     getDeliveryById(id: number): Observable<OrderDelivery> {
         return this.http
@@ -32,9 +38,13 @@ export class DeliveryOrdersService {
         .get<Array<DeliveryListDto>>(`${endpoints.root}/${endpoints.replenishmentEndpoints.getReplenishmentOrdersListDtoAsync}`);
     }
 
-    addDelivery(order: OrderDelivery): void {}
-
-    update(order: OrderDelivery): void {}
-
-    delete(id: number): void {}
+    add(delivery: OrderDelivery): Observable<any> {
+        return this.http.post<OrderDelivery>(`${endpoints.root}/${endpoints.deliveryEndpoints.addAsync}`, delivery, this.httpOptions);
+    }
+    update(delivery: OrderDelivery): Observable<any> {
+        return this.http.put<OrderDelivery>(`${endpoints.root}/${endpoints.deliveryEndpoints.updateAsync}/${delivery.id}`, delivery);
+    }
+    delete(id: number): Observable<any> {
+        return this.http.delete<OrderDelivery>(`${endpoints.root}/${endpoints.deliveryEndpoints.deleteAsync}/${id}`);
+    }
 }

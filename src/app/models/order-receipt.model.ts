@@ -1,5 +1,5 @@
 export interface OrderReceipt {
-  id: number;
+  id?: number;
   reference: string;
   receiveFromId: number;
   scheduledDate: Date;

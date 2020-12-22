@@ -40,8 +40,4 @@ export class ContactService {
     return this.http.delete<Contact>(`${endpoints.root}/${endpoints.contactEndpoints.deleteAsync}/${id}`);
   }
 
-  handleError(err: HttpErrorResponse) {
-    return throwError(err);
-  }
-
 }

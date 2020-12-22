@@ -77,6 +77,10 @@ import { CategoryAddComponent } from './inventory/categories/category-add/catego
 import { ReplenishmentComponent } from './inventory/orders/replenishments/replenishment/replenishment.component';
 import { CreateCategoryDialog } from './shared/dialogs/create-item/create-category-dialog/create-category-dialog';
 import { HttpClientModule } from '@angular/common/http';
+import { BomComponent } from './manufacturing/bom/bom.component';
+import { BomComponentsComponent } from './manufacturing/bom-components/bom-components.component';
+import { ManufacturingOrdersComponent } from './manufacturing/orders/manufacturing-orders/manufacturing-orders.component';
+import { UnbuildOrdersComponent } from './manufacturing/orders/unbuild-orders/unbuild-orders.component';
 
 @NgModule({
   declarations: [
@@ -126,6 +130,10 @@ import { HttpClientModule } from '@angular/common/http';
     AddCardComponent,
     ReplenishmentComponent,
     CreateCategoryDialog,
+    BomComponent,
+    BomComponentsComponent,
+    ManufacturingOrdersComponent,
+    UnbuildOrdersComponent,
   ],
   imports: [
     HttpClientModule,

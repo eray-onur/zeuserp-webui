@@ -1,5 +1,5 @@
 export interface OrderManufacturing {
-  id: number;
+  id?: number;
   reference: string;
   productToManufactureId: number;
   bomId: number;

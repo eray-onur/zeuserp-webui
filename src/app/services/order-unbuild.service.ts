@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { endpoints } from '../manufacturing/manufacturing.endpoints';
@@ -8,6 +8,12 @@ import { OrderUnbuild } from '../models/order-unbuild.model';
 
 @Injectable({providedIn: 'root'})
 export class UnbuildOrdersService {
+
+    httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+        })
+      };
 
     constructor(private http: HttpClient) {
 
@@ -33,9 +39,13 @@ export class UnbuildOrdersService {
         .get<Array<UnbuildListDto>>(`${endpoints.root}/${endpoints.unbuildEndpoints.getUnbuildOrdersListDtoAsync}`);
     }
 
-    addUnbuild(order: OrderUnbuild): void {}
-
-    update(order: OrderUnbuild): void {}
-
-    delete(id: number): void {}
+    add(unbuild: OrderUnbuild): Observable<any> {
+        return this.http.post<OrderUnbuild>(`${endpoints.root}/${endpoints.unbuildEndpoints.addAsync}`, unbuild, this.httpOptions);
+    }
+    update(unbuild: OrderUnbuild): Observable<any> {
+        return this.http.put<OrderUnbuild>(`${endpoints.root}/${endpoints.unbuildEndpoints.updateAsync}/${unbuild.id}`, unbuild);
+    }
+    delete(id: number): Observable<any> {
+        return this.http.delete<OrderUnbuild>(`${endpoints.root}/${endpoints.unbuildEndpoints.deleteAsync}/${id}`);
+    }
 }

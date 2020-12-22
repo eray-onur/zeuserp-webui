@@ -1,5 +1,5 @@
 export interface OrderDelivery {
-  id: number;
+  id?: number;
   reference: string;
   deliveryAddressId: number;
   sourceLocationId: number;

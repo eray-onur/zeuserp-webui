@@ -61,7 +61,7 @@ export class ReplenishmentComponent implements OnInit, OnDestroy {
           this.locationsSub = this.locationService.getAllLocations().subscribe(l => {
             this.locations = l;
           });
-          this.replenishmentDetailsSub = this.replenishmentService.getReplenishmentDetails(id).subscribe(r => {
+          this.replenishmentDetailsSub = this.replenishmentService.getReplenishmentDetailsById(id).subscribe(r => {
             this.replenishmentDetailsDto.push(r);
           });
           this.formBuilder.group({

@@ -11,8 +11,6 @@ import { OrderReplenishmentService } from 'src/app/services/order-replenishment.
 import { LocationService } from 'src/app/services/location.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Subscription } from 'rxjs';
-import { ReplenishmentListDto } from 'src/app/models/complex-types/replenishment-list.dto';
-
 @Component({
   selector: 'app-replenishments',
   templateUrl: './replenishments.component.html',
@@ -20,7 +18,7 @@ import { ReplenishmentListDto } from 'src/app/models/complex-types/replenishment
 })
 export class ReplenishmentsComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  replenishmentListDto: Array<ReplenishmentListDto>;
+  replenishmentListDto: Array<ReplenishmentDetailsDto>;
   replenishmentListSub: Subscription;
 
   products: Array<Product> = new Array<Product>();
@@ -40,7 +38,7 @@ export class ReplenishmentsComponent implements OnInit, AfterViewInit, OnDestroy
       private locationService: LocationService,
       private replenishmentDetailsService: OrderReplenishmentService,
     ) {
-        this.replenishmentListSub = this.replenishmentDetailsService.getReplenishmentList().subscribe(r => {
+        this.replenishmentListSub = this.replenishmentDetailsService.getReplenishmentDetails().subscribe(r => {
           this.replenishmentListDto = r;
         });
         this.productsSub = this.productService.getAllProducts().subscribe(p => {

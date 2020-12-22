@@ -56,7 +56,7 @@ export class ReplenishmentsAddComponent implements OnInit {
       this.routeSubscription = this.route.params["id"].subscribe(p => {
         const id = +p;
         if (id) {
-          this.replenishmentDetailsSub = this.replenishmentService.getReplenishmentDetails(id).subscribe(r => {
+          this.replenishmentDetailsSub = this.replenishmentService.getReplenishmentDetailsById(id).subscribe(r => {
             this.replenishmentDetailsDto.push(r);
           });
         }
