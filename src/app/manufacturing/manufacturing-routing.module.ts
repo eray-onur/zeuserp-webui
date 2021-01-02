@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ManufacturingComponent } from './manufacturing.component';
 import { ProductAddComponent } from '../inventory/products/product-add/product-add.component';
 import { BomComponent } from './bom/bom.component';
+import { BomAddComponent } from './bom/bom-add/bom-add.component';
+import { BomDetailsComponent } from './bom/bom-details/bom-details.component';
 
 const manufacturingRoutes: Routes = [
   { path: '', component: ManufacturingComponent,
@@ -11,7 +13,10 @@ const manufacturingRoutes: Routes = [
       { 
         path: 'boms', 
         children: [
-          { path: '', component: BomComponent, pathMatch: 'full' }
+          { path: 'edit/:id', component: BomAddComponent },
+          { path: 'add', component: BomAddComponent },
+          { path: ':id', component: BomDetailsComponent },
+          { path: '', component: BomComponent }
 
         ] 
       }

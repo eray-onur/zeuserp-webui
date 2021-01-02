@@ -5,7 +5,7 @@ import { MasterComponent } from './master/master.component';
 const masterRoutes: Routes = [
   {
     path: '',
-    component: MasterComponent
+    loadChildren: () => import("./master/master-routing.module").then( m => m.MasterRoutingModule ),
   },
   {
     path: 'inventory',

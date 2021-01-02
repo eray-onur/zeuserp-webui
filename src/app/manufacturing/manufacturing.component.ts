@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manufacturing',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManufacturingComponent implements OnInit {
 
-  constructor() { }
+  
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  navigate(url: Array<String>) {
+    this.router.navigate(url);
   }
 
 }

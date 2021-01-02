@@ -27,6 +27,7 @@
     "@angular/router": "~11.0.5",
     "bulma": "^0.9.1",
     "moment": "^2.29.1",
+    "ngx-skeleton-loader": "^2.6.2",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

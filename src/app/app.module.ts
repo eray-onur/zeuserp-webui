@@ -81,6 +81,18 @@ import { BomComponent } from './manufacturing/bom/bom.component';
 import { BomComponentsComponent } from './manufacturing/bom-components/bom-components.component';
 import { ManufacturingOrdersComponent } from './manufacturing/orders/manufacturing-orders/manufacturing-orders.component';
 import { UnbuildOrdersComponent } from './manufacturing/orders/unbuild-orders/unbuild-orders.component';
+import { PlmComponent } from './plm/plm.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { AccountComponent } from './master/account/account.component';
+import { BomAddComponent } from './manufacturing/bom/bom-add/bom-add.component';
+import { BomDetailsComponent } from './manufacturing/bom/bom-details/bom-details.component';
+import { BomComponentsAddComponent } from './manufacturing/bom-components/bom-components-add/bom-components-add.component';
+import { BomComponentsDetailsComponent } from './manufacturing/bom-components/bom-components-details/bom-components-details.component';
+import { ManufacturingOrderAddComponent } from './manufacturing/orders/manufacturing-orders/manufacturing-order-add/manufacturing-order-add.component';
+import { ManufacturingOrderDetailsComponent } from './manufacturing/orders/manufacturing-orders/manufacturing-order-details/manufacturing-orders-details.component';
+import { UnbuildOrderDetailsComponent } from './manufacturing/orders/unbuild-orders/unbuild-order-details/unbuild-order-details.component';
+import { UnbuildOrderAddComponent } from './manufacturing/orders/unbuild-orders/unbuild-order-add/unbuild-order-add.component';
+import { CreateBomcompDialog } from './shared/dialogs/create-item/create-bomcomp-dialog/create-bomcomp.dialog';
 
 @NgModule({
   declarations: [
@@ -134,6 +146,17 @@ import { UnbuildOrdersComponent } from './manufacturing/orders/unbuild-orders/un
     BomComponentsComponent,
     ManufacturingOrdersComponent,
     UnbuildOrdersComponent,
+    PlmComponent,
+    AccountComponent,
+    BomAddComponent,
+    BomDetailsComponent,
+    BomComponentsAddComponent,
+    BomComponentsDetailsComponent,
+    ManufacturingOrderAddComponent,
+    ManufacturingOrderDetailsComponent,
+    UnbuildOrderDetailsComponent,
+    UnbuildOrderAddComponent,
+    CreateBomcompDialog,
   ],
   imports: [
     HttpClientModule,
@@ -161,6 +184,7 @@ import { UnbuildOrdersComponent } from './manufacturing/orders/unbuild-orders/un
     MatSortModule,
     MatGridListModule,
     MatProgressSpinnerModule,
+    NgxSkeletonLoaderModule,
 
   ],
   exports: [

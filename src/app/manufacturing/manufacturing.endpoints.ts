@@ -1,12 +1,12 @@
 export const endpoints = {
-    root: 'localhost:44345/api',
+    root: 'https://localhost:44328/api',
     bomEndpoints: {
         get: 'BillOfMaterials/Get',
         getAsync: 'BillOfMaterials/GetAsync',
         getAll: 'BillOfMaterials/GetAll',
         getAllAsync: 'BillOfMaterials/GetAllAsync',
         getBomDetailsDto: 'BillOfMaterials/GetDetails',
-        getBomDetailsDtoAsync: 'Bom/GetDetailsAsync',
+        getBomDetailsDtoAsync: 'BillOfMaterials/GetDetailsAsync',
         getBomListDto: 'BillOfMaterials/GetList',
         getBomListDtoAsync: 'BillOfMaterials/GetListAsync',
         add: 'BillOfMaterials/Add',
@@ -21,6 +21,8 @@ export const endpoints = {
         componentGetAllAsync: 'BomComponents/GetAllAsync',
         componentDetails: 'BomComponents/GetDetails',
         componentDetailsAsync: 'BomComponents/GetDetailsAsync',
+        componentListByOrderId: 'BomComponents/GetListByOrderId',
+        componentListByOrderIdAsync: 'BomComponents/GetListByOrderIdAsync',
         componentAdd: 'BomComponents/Add',
         componentAddAsync: 'BomComponents/AddAsync',
         componentUpdate: 'BomComponents/Update',

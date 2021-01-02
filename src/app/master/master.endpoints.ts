@@ -12,4 +12,7 @@ export const endpoints = {
         delete: 'Contacts/Delete',
         deleteAsync: 'Contacts/DeleteAsync',
     },
+    userEndpoints: {
+        get: 'Users/Get',
+    },
 };
