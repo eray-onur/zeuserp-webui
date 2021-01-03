@@ -93,6 +93,10 @@ import { ManufacturingOrderDetailsComponent } from './manufacturing/orders/manuf
 import { UnbuildOrderDetailsComponent } from './manufacturing/orders/unbuild-orders/unbuild-order-details/unbuild-order-details.component';
 import { UnbuildOrderAddComponent } from './manufacturing/orders/unbuild-orders/unbuild-order-add/unbuild-order-add.component';
 import { CreateBomcompDialog } from './shared/dialogs/create-item/create-bomcomp-dialog/create-bomcomp.dialog';
+import { LoginComponent } from './master/user/login/login.component';
+import { RegisterComponent } from './master/user/register/register.component';
+import { AddUserComponent } from './master/user/add-user/add-user.component';
+import { ForgotPasswordComponent } from './master/user/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -157,6 +161,10 @@ import { CreateBomcompDialog } from './shared/dialogs/create-item/create-bomcomp
     UnbuildOrderDetailsComponent,
     UnbuildOrderAddComponent,
     CreateBomcompDialog,
+    LoginComponent,
+    RegisterComponent,
+    AddUserComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     HttpClientModule,

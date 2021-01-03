@@ -210,5 +210,9 @@ export class ProductAddComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  navigateToCreateCategories() {
+    this.router.navigate(['/', 'inventory', 'categories', 'add']);
+  }
+
 
 }

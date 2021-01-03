@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 interface navItem {
   [key: string]: any;
@@ -50,11 +51,26 @@ export class MasterComponent implements OnInit {
       'iconName': 'contacts',
       'navigation': () => this.navigateToInv(),
     },
+    { 
+      'name': 'Logout',
+      'iconName': 'sensor_door',
+      'navigation': () => this.logout(),
+    },
   ]
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) {
+    if(this.userService.getActiveSession()) {
+      console.log("Access was granted.");
+    } else {
+      this.navigateToLogin();
+    }
+  }
 
   ngOnInit(): void {
+  }
+
+  navigateToLogin(): void {
+    this.router.navigate(['/']);
   }
 
   navigateToInv(): void {
@@ -71,6 +87,17 @@ export class MasterComponent implements OnInit {
 
   navigateToContacts(): void {
     this.router.navigate(['/', 'inventory','contacts']);
+  }
+
+  logout(): void {
+    const username = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
+
+    if(username && token) {
+      localStorage.removeItem("username");
+      localStorage.removeItem("token");
+    }
+    this.router.navigate(['/']);
   }
 
 }

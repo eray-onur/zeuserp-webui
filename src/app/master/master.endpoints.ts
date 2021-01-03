@@ -1,5 +1,6 @@
 export const endpoints = {
     root: 'http://localhost:52199/api',
+    accountRoot: 'http://localhost:52199',
     contactEndpoints: {
         get: 'Contacts/Get',
         getAsync: 'Contacts/GetAsync',
@@ -13,6 +14,10 @@ export const endpoints = {
         deleteAsync: 'Contacts/DeleteAsync',
     },
     userEndpoints: {
-        get: 'Users/Get',
+        get: 'Account/GetAllUsers',
+        login: 'Account/Login',
+        register: 'Account/Register',
+        forgotPw: 'Account/ForgotPassword',
+        getAllUsers: 'Account/GetAllUsers'
     },
 };

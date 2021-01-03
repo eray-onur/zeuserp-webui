@@ -13,6 +13,9 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Category</mat-label>
                         <mat-select [formControl]="this.productForm.get('categoryId')">
+                            <mat-option>
+                                <p style="width: 100%; height: 100%;" (click)="this.navigateToCreateCategories()">Create New Category...</p>
+                            </mat-option>
                           <mat-option *ngFor="let category of categories" [value]="category['id']">
                             {{category['name']}}
                           </mat-option>

@@ -6,9 +6,11 @@ import { ProductAddComponent } from '../inventory/products/product-add/product-a
 import { BomComponent } from './bom/bom.component';
 import { BomAddComponent } from './bom/bom-add/bom-add.component';
 import { BomDetailsComponent } from './bom/bom-details/bom-details.component';
+import { ManufacturingGuard } from './manufacturing.guard';
 
 const manufacturingRoutes: Routes = [
-  { path: '', component: ManufacturingComponent,
+  { path: '', component: ManufacturingComponent, 
+    canActivate: [ManufacturingGuard],
     children: [
       { 
         path: 'boms', 

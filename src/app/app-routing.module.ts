@@ -2,6 +2,7 @@ import { ErrorPageComponent } from './shared/error-page/error-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MasterComponent } from './master/master.component';
+import { ManufacturingGuard } from './manufacturing/manufacturing.guard';
 const masterRoutes: Routes = [
   {
     path: '',
@@ -13,6 +14,7 @@ const masterRoutes: Routes = [
   },
   {
     path: 'manufacturing',
+    canActivate: [ManufacturingGuard],
     loadChildren: () => import("./manufacturing/manufacturing-routing.module").then( m => m.ManufacturingRoutingModule ),
   },
   {

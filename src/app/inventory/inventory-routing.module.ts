@@ -26,9 +26,11 @@ import { CategoryComponent } from './categories/category/category.component';
 import { CategoryAddComponent } from './categories/category-add/category-add.component';
 import { ContactComponent } from './contacts/contact/contact.component';
 import { ContactAddComponent } from './contacts/contact-add/contact-add.component';
+import { InventoryGuard } from './inventory.guard';
 
 const inventoryRoutes: Routes = [
   { path: '', component: InventoryComponent,
+    canActivate: [InventoryGuard],
     children: [
       { path: '', component: InventoryMenuComponent },
       {
