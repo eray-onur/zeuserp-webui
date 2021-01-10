@@ -1,5 +1,5 @@
 export const endpoints = {
-    root: 'http://localhost:44343/api',
+    root: 'https://localhost:44343/api',
     ecoEndpoints: {
         get: 'Eco/Get',
         getAsync: 'Eco/GetAsync',
@@ -11,6 +11,7 @@ export const endpoints = {
         addAsync: 'Eco/AddAsync',
         update: 'Eco/Update',
         updateAsync: 'Eco/UpdateAsync',
+        updateEcoStage: 'Eco/UpdateEcoStage',
         delete: 'Eco/Delete',
         deleteAsync: 'Eco/DeleteAsync',
     },

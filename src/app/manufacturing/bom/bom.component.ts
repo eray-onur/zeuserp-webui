@@ -1,11 +1,10 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { BomListDto } from 'src/app/models/complex-types/bom-list.dto';
 import { BomsService } from 'src/app/services/bom.service';
 

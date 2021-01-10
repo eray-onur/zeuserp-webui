@@ -3,7 +3,7 @@ import { EcoStage } from "../enums/eco-stage.enum";
 export interface EcoDetailsDto {
     id?: number;
     summary: string;
-    responsibleId: number;
+    responsibleId: string;
     responsibleName: string;
     applyOn: boolean;
     productId: number;
@@ -12,6 +12,7 @@ export interface EcoDetailsDto {
     effectivityDate?: Date;
     ecoTagsId?: number;
     note: string;
-    approverId: number;
+    approverId: string;
+    approverName: string;
     ecoStage: EcoStage;
 }

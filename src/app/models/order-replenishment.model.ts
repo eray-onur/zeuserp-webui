@@ -1,7 +1,7 @@
 export interface OrderReplenishment {
   id?: number;
   reference: string;
-  productId: number;
+  productToReplenishId: number;
   locationId: number;
   onHandQuantity: number;
   orderQuantity: number;

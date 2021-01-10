@@ -1,4 +1,4 @@
-export interface ManufacturingComponent {
+export interface ManufacturingOrderComponent {
     id?: number;
     productId?: string;
     quantityToConsume: number;

@@ -74,7 +74,7 @@ export class MasterComponent implements OnInit {
   }
 
   navigateToInv(): void {
-    this.router.navigate(['/', 'inventory']);
+    this.router.navigate(['/', 'inventory', 'products']);
   }
 
   navigateToManu(): void {

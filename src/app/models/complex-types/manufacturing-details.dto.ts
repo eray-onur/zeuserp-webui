@@ -1,4 +1,4 @@
-import { ManufacturingComponent } from '../manufacturing-component.model';
+import { ManufacturingOrderComponent } from '../manufacturing-component.model';
 
 export interface ManufacturingDetailsDto {
     id: number;
@@ -13,7 +13,7 @@ export interface ManufacturingDetailsDto {
     responsibleId: number;
     responsibleName: string;
     componentsId: number;
-    componentsUsed: Array<ManufacturingComponent>;
+    componentsUsed: Array<ManufacturingOrderComponent>;
     componentsLocationId: number;
     componentsLocationName: string;
     finishedProductsLocationId: number;

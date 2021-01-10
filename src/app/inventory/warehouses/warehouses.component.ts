@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { WarehouseListDto } from 'src/app/models/complex-types/warehouse-list.dto';
 import { Warehouse } from 'src/app/models/warehouse.model';
 import { LocationService } from 'src/app/services/location.service';
@@ -74,6 +74,10 @@ export class WarehousesComponent implements OnInit, AfterViewInit {
 
   navigateToEditWarehouse(id: number) {
     this.router.navigate(['/', 'inventory', 'warehouses', 'edit', id.toString()]);
+  }
+
+  navigate(url) {
+    this.router.navigate(url);
   }
 
 }

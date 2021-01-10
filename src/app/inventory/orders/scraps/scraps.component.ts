@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { ScrapDetailsDto } from 'src/app/models/complex-types/scrap-details.dto';
 import { ScrapListDto } from 'src/app/models/complex-types/scrap-list.dto';
 import { LocationService } from 'src/app/services/location.service';
@@ -97,6 +97,10 @@ export class ScrapsComponent implements OnInit, AfterViewInit {
 
   navigateToProduct(productId: number) {
     this.router.navigate(['/', 'inventory', 'products', productId]);
+  }
+
+  navigate(url) {
+    this.router.navigate(url);
   }
 
 }

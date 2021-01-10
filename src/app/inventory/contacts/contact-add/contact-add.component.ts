@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Contact } from 'src/app/models/contact.model';
 import { ContactService } from 'src/app/services/contact.service';
@@ -90,9 +90,9 @@ export class ContactAddComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  navigate(uri: string) {
+  navigate(uri) {
     console.log('Called route is: ', uri);
-    this.router.navigate([uri]);
+    this.router.navigate(uri);
   }
 
   onSubmit() {
@@ -120,7 +120,7 @@ export class ContactAddComponent implements OnInit, OnDestroy, AfterViewInit {
         this.contactService.update(contact)
         .pipe(
           tap(
-            data => { console.log(data) },
+            data => { console.log(data); this.navigate(['/','inventory','contacts']); },
             error => this.catchContactAddError(error)
           )
         ).subscribe();

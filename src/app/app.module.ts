@@ -97,6 +97,18 @@ import { LoginComponent } from './master/user/login/login.component';
 import { RegisterComponent } from './master/user/register/register.component';
 import { AddUserComponent } from './master/user/add-user/add-user.component';
 import { ForgotPasswordComponent } from './master/user/forgot-password/forgot-password.component';
+import { EcoTagsComponent } from './plm/eco-tags/eco-tags.component';
+import { EcoTypesComponent } from './plm/eco-types/eco-types.component';
+import { EcoAddComponent } from './plm/eco/eco-add/eco-add.component';
+import { EcoDetailsComponent } from './plm/eco/eco-details/eco-details.component';
+import { EcoTagAddComponent } from './plm/eco-tags/eco-tag-add/eco-tag-add.component';
+import { EcoTypeAddComponent } from './plm/eco-types/eco-type-add/eco-type-add.component';
+import { EcoComponent } from './plm/eco/eco.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerComponent, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { CreateManucompDialogComponent } from './shared/dialogs/create-item/create-manucomp-dialog/create-manucomp-dialog.component';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -165,6 +177,15 @@ import { ForgotPasswordComponent } from './master/user/forgot-password/forgot-pa
     RegisterComponent,
     AddUserComponent,
     ForgotPasswordComponent,
+    EcoTagsComponent,
+    EcoTypesComponent,
+    EcoAddComponent,
+    EcoDetailsComponent,
+    EcoTagAddComponent,
+    EcoTypeAddComponent,
+    EcoComponent,
+    NavbarComponent,
+    CreateManucompDialogComponent,
   ],
   imports: [
     HttpClientModule,
@@ -193,6 +214,9 @@ import { ForgotPasswordComponent } from './master/user/forgot-password/forgot-pa
     MatGridListModule,
     MatProgressSpinnerModule,
     NgxSkeletonLoaderModule,
+    NgxMatDatetimePickerModule,
+    NgxMatColorPickerModule,
+    MatMomentDateModule
 
   ],
   exports: [
@@ -207,6 +231,7 @@ import { ForgotPasswordComponent } from './master/user/forgot-password/forgot-pa
     MatProgressSpinnerModule,
   ],
   providers: [
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

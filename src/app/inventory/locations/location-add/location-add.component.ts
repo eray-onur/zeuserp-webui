@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { Address } from 'src/app/models/address.model';
 import { Location } from 'src/app/models/location.model';
 import { AddressService } from 'src/app/services/address.service';
@@ -100,7 +100,7 @@ export class LocationAddComponent implements OnInit, OnDestroy {
       }
       console.log(locToAdd);
       console.log(this.locationId);
-      if(this.locationId) {
+      if (this.locationId) {
         locToAdd.id = this.locationId;
         this.locationService.update(locToAdd).subscribe(d => {
           this.router.navigate(['/', 'inventory', 'locations']);
@@ -109,6 +109,7 @@ export class LocationAddComponent implements OnInit, OnDestroy {
       else {
         this.locationService.add(locToAdd).subscribe(d => {
           console.log(d);
+          this.router.navigate(['/', 'inventory', 'locations']);
         });
       }
       

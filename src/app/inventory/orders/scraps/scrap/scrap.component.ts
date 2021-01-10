@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { ScrapDetailsDto } from 'src/app/models/complex-types/scrap-details.dto';
 import { ProductService } from 'src/app/services/product.service';
 import { ScrapOrdersService } from 'src/app/services/scrap.service';

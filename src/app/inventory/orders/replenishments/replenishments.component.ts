@@ -37,6 +37,7 @@ export class ReplenishmentsComponent implements OnInit, AfterViewInit, OnDestroy
       private productService: ProductService,
       private locationService: LocationService,
       private replenishmentDetailsService: OrderReplenishmentService,
+      private router: Router
     ) {
         this.replenishmentListSub = this.replenishmentDetailsService.getReplenishmentDetails().subscribe(r => {
           this.replenishmentListDto = r;
@@ -70,6 +71,10 @@ export class ReplenishmentsComponent implements OnInit, AfterViewInit, OnDestroy
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  navigate(url) {
+    this.router.navigate(url);
   }
 }
 

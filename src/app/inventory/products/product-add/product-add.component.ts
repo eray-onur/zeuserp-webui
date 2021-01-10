@@ -9,7 +9,7 @@ import { stringify } from 'querystring';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category.model';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { decimalPattern } from 'src/app/utils/regexp.pattern';
 @Component({
   selector: 'product-add',
@@ -113,9 +113,8 @@ export class ProductAddComponent implements OnInit, AfterViewInit, OnDestroy {
             this.productForm.get('weight').setValue(p.weight.toFixed(3));
             this.productForm.get('canBePurchased').setValue(p.canBePurchased);
             this.productForm.get('canBeSold').setValue(p.canBeSold);
-            
             this.productForm.patchValue({
-              categoryId: p["categoryId"]
+              categoryId: p['categoryId']
             });
           }
         });
@@ -140,11 +139,6 @@ export class ProductAddComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-  }
-
-  navigate(uri: string) {
-    console.log('Called route is: ', uri);
-    this.router.navigate([uri]);
   }
 
   onSubmit() {
@@ -175,7 +169,7 @@ export class ProductAddComponent implements OnInit, AfterViewInit, OnDestroy {
         this.productService.update(product)
         .pipe(
           tap(
-            data => { console.log(data) },
+            data => { console.log(data); this.navigate(['/','inventory','products']); },
             error => this.catchProductAddError(error)
           )
         ).subscribe();
@@ -190,7 +184,7 @@ export class ProductAddComponent implements OnInit, AfterViewInit, OnDestroy {
         this.productService.add(product)
         .pipe(
           tap(
-            data => { console.log(data) },
+            data => { console.log(data); this.navigate(['/','inventory','products']); },
             error => this.catchProductAddError(error)
           )
         ).subscribe();
@@ -212,6 +206,10 @@ export class ProductAddComponent implements OnInit, AfterViewInit, OnDestroy {
 
   navigateToCreateCategories() {
     this.router.navigate(['/', 'inventory', 'categories', 'add']);
+  }
+
+  navigate(url) {
+    this.router.navigate(url);
   }
 
 

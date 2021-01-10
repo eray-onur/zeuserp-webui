@@ -67,4 +67,8 @@ export class LocationsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/', 'inventory', 'locations', 'edit', id.toString()]);
   }
 
+  navigate(url) {
+    this.router.navigate(url);
+  }
+
 }

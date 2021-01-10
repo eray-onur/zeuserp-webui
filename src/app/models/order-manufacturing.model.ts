@@ -5,7 +5,7 @@ export interface OrderManufacturing {
   bomId: number;
   quantityToManufacture: number;
   quantityManufactured: number;
-  scheduledDate: Date;
+  scheduledDate?: Date;
   responsibleId: number;
   componentsId: number;
   componentsLocationId: number;

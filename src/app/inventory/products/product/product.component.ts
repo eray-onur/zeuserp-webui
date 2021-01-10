@@ -1,8 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap, catchError } from 'rxjs/operators';
 import { ProductDetailsDto } from 'src/app/models/complex-types/product-details.dto';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';

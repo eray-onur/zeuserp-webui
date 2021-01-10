@@ -5,6 +5,7 @@ import { Product } from './../models/product.model';
 import { Observable, throwError } from 'rxjs';
 import { endpoints } from '../plm/plm.endpoints';
 import { EngineeringChangeOrder } from '../models/engineering-change-order.model';
+import { EcoType } from '../models/eco-type.model';
 
 @Injectable({providedIn: 'root'})
 export class EcoTypeService {
@@ -18,25 +19,24 @@ export class EcoTypeService {
   constructor(private http: HttpClient) {
   }
 
-  getEcoById(id: number): Observable<EngineeringChangeOrder> {
-    return this.http.get<EngineeringChangeOrder>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.getAsync}/${id}`);
+  getEcoTypeById(id: number): Observable<EcoType> {
+    return this.http.get<EcoType>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.getAsync}/${id}`);
   }
 
-  getAllProducts(): Observable<Array<EngineeringChangeOrder>> {
-    return this.http.get<Array<EngineeringChangeOrder>>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.getAllAsync}`);
+  getAllEcoTypes(): Observable<Array<EcoType>> {
+    return this.http.get<Array<EcoType>>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.getAllAsync}`);
   }
 
-  add(eco: EngineeringChangeOrder): Observable<any> {
-    console.log(eco);
-    return this.http.post<Product>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.addAsync}`, eco, this.httpOptions);
+  add(ecoType: EcoType): Observable<any> {
+    return this.http.post<EcoType>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.addAsync}`, ecoType, this.httpOptions);
   }
 
-  update(eco: EngineeringChangeOrder): Observable<any> {
-    return this.http.put<Product>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.updateAsync}/${eco.id}`, eco);
+  update(ecoType: EcoType): Observable<any> {
+    return this.http.put<EcoType>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.updateAsync}/${ecoType.id}`, ecoType);
   }
 
   delete(id: number):  Observable<any> {
-    return this.http.delete<Product>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.deleteAsync}/${id}`);
+    return this.http.delete<EcoType>(`${endpoints.root}/${endpoints.ecoTypeEndpoints.deleteAsync}/${id}`);
   }
 
   handleError(err: HttpErrorResponse) {

@@ -121,6 +121,7 @@ export class CategoryAddComponent implements OnDestroy {
       }
       this.categoryService.add(category).subscribe(r => {
         console.log(r);
+        this.navigate(['/','inventory','categories']);
       });
     }
   }

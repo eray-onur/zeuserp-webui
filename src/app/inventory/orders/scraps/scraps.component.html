@@ -1,7 +1,10 @@
 <div class="sub-page">
-  <mat-form-field>
+  <button color="primary" mat-flat-button style="margin-bottom: 0.25rem;" (click)="this.navigate(['/','inventory','orders','scraps','add'])">Add New Order</button>
+  <div>
+    <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
+    </mat-form-field>
+  </div>
       <table mat-table [dataSource]="dataSource" matSort>     
         <!-- Order Code Column -->
         <ng-container matColumnDef="ScrapOrderCode">

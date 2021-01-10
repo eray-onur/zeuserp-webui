@@ -10,7 +10,6 @@ import { ManufacturingGuard } from './manufacturing.guard';
 
 const manufacturingRoutes: Routes = [
   { path: '', component: ManufacturingComponent, 
-    canActivate: [ManufacturingGuard],
     children: [
       { 
         path: 'boms', 

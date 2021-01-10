@@ -1,10 +1,9 @@
 
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from './../models/product.model';
 import { Observable, throwError } from 'rxjs';
 import { endpoints } from '../plm/plm.endpoints';
-import { EngineeringChangeOrder } from '../models/engineering-change-order.model';
+import { EcoTag } from '../models/eco-tag.model';
 
 @Injectable({providedIn: 'root'})
 export class EcoTagService {
@@ -18,25 +17,25 @@ export class EcoTagService {
   constructor(private http: HttpClient) {
   }
 
-  getEcoById(id: number): Observable<EngineeringChangeOrder> {
-    return this.http.get<EngineeringChangeOrder>(`${endpoints.root}/${endpoints.ecoTagEndpoints.getAsync}/${id}`);
+  getEcoTagById(id: number): Observable<EcoTag> {
+    return this.http.get<EcoTag>(`${endpoints.root}/${endpoints.ecoTagEndpoints.getAsync}/${id}`);
   }
 
-  getAllProducts(): Observable<Array<EngineeringChangeOrder>> {
-    return this.http.get<Array<EngineeringChangeOrder>>(`${endpoints.root}/${endpoints.ecoTagEndpoints.getAllAsync}`);
+  getAllEcoTags(): Observable<Array<EcoTag>> {
+    return this.http.get<Array<EcoTag>>(`${endpoints.root}/${endpoints.ecoTagEndpoints.getAllAsync}`);
   }
 
-  add(eco: EngineeringChangeOrder): Observable<any> {
-    console.log(eco);
-    return this.http.post<Product>(`${endpoints.root}/${endpoints.ecoTagEndpoints.addAsync}`, eco, this.httpOptions);
+  add(ecoTag: EcoTag): Observable<any> {
+    return this.http.post<EcoTag>(`${endpoints.root}/${endpoints.ecoTagEndpoints.addAsync}`, ecoTag, this.httpOptions);
   }
 
-  update(eco: EngineeringChangeOrder): Observable<any> {
-    return this.http.put<Product>(`${endpoints.root}/${endpoints.ecoTagEndpoints.updateAsync}/${eco.id}`, eco);
+  update(ecoTag: EcoTag): Observable<any> {
+    console.log(ecoTag);
+    return this.http.put<EcoTag>(`${endpoints.root}/${endpoints.ecoTagEndpoints.updateAsync}/${ecoTag.id}`, ecoTag);
   }
 
-  delete(id: number):  Observable<any> {
-    return this.http.delete<Product>(`${endpoints.root}/${endpoints.ecoTagEndpoints.deleteAsync}/${id}`);
+  delete(id: number): Observable<any> {
+    return this.http.delete<EcoTag>(`${endpoints.root}/${endpoints.ecoTagEndpoints.deleteAsync}/${id}`);
   }
 
   handleError(err: HttpErrorResponse) {

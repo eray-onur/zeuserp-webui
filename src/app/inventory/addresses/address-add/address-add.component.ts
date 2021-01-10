@@ -85,10 +85,10 @@ export class AddressAddComponent implements OnInit, OnDestroy {
     if(this.addressId) {
       addressToAdd.id = this.addressId;
       this.addressUpdateSub = this.addressService.update(addressToAdd)
-    .subscribe(data => this.router.navigate(['/', 'inventory','address']));
+    .subscribe(data => this.router.navigate(['/', 'inventory','products']));
     } else {
       this.addressAddSub = this.addressService.add(addressToAdd)
-    .subscribe(data => this.router.navigate(['/', 'inventory','address']));
+    .subscribe(data => this.router.navigate(['/', 'inventory','products']));
     }
 
   }

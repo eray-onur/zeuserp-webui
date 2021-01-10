@@ -30,9 +30,7 @@ import { InventoryGuard } from './inventory.guard';
 
 const inventoryRoutes: Routes = [
   { path: '', component: InventoryComponent,
-    canActivate: [InventoryGuard],
     children: [
-      { path: '', component: InventoryMenuComponent },
       {
         path: 'products',
         children: [
@@ -56,7 +54,7 @@ const inventoryRoutes: Routes = [
         children: [
           { path: '', component: OrdersComponent, pathMatch: 'full' },
           { 
-            path: 'replenishments', 
+            path: 'replenishments',
             children: [
               { path: '', component: ReplenishmentsComponent, pathMatch: 'full' },
               { path: 'add', component: ReplenishmentsAddComponent },

@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { WarehouseDetailsDto } from 'src/app/models/complex-types/warehouse-details.dto';
 import { Warehouse } from 'src/app/models/warehouse.model';
 import { LocationService } from 'src/app/services/location.service';

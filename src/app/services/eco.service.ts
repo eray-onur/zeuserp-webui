@@ -6,6 +6,7 @@ import { Observable, throwError } from 'rxjs';
 import { endpoints } from '../plm/plm.endpoints';
 import { EngineeringChangeOrder } from '../models/engineering-change-order.model';
 import { EcoDetailsDto } from '../models/complex-types/eco-details.dto';
+import { EcoStage } from '../models/enums/eco-stage.enum';
 
 @Injectable({providedIn: 'root'})
 export class EcoService {
@@ -33,15 +34,19 @@ export class EcoService {
 
   add(eco: EngineeringChangeOrder): Observable<any> {
     console.log(eco);
-    return this.http.post<Product>(`${endpoints.root}/${endpoints.ecoEndpoints.addAsync}`, eco, this.httpOptions);
+    return this.http.post<EngineeringChangeOrder>(`${endpoints.root}/${endpoints.ecoEndpoints.addAsync}`, eco, this.httpOptions);
   }
 
   update(eco: EngineeringChangeOrder): Observable<any> {
-    return this.http.put<Product>(`${endpoints.root}/${endpoints.ecoEndpoints.updateAsync}/${eco.id}`, eco);
+    return this.http.put<EngineeringChangeOrder>(`${endpoints.root}/${endpoints.ecoEndpoints.updateAsync}/${eco.id}`, eco);
+  }
+
+  updateStage(id: number, newStage: EcoStage): Observable<any> {
+    return this.http.put<EngineeringChangeOrder>(`${endpoints.root}/${endpoints.ecoEndpoints.updateEcoStage}/${id}`, newStage);
   }
 
   delete(id: number):  Observable<any> {
-    return this.http.delete<Product>(`${endpoints.root}/${endpoints.ecoEndpoints.deleteAsync}/${id}`);
+    return this.http.delete<EngineeringChangeOrder>(`${endpoints.root}/${endpoints.ecoEndpoints.deleteAsync}/${id}`);
   }
 
   handleError(err: HttpErrorResponse) {

@@ -1,39 +1,43 @@
 <div id="page">
-  <mat-drawer-container class="inventory-container" autosize>
-    <mat-drawer #drawer class="inventory-sidenav" mode="over">
-      <div class="sidenav-header">
-        <!-- <button mat-icon-button><mat-icon>menu</mat-icon></button> -->
-        <h2 id="headerTitle">Inventory</h2>
-      </div>
-      <ul class="sidenav-item-list">
-        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'products']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Products</li>
-        <li>
-          <ul class="sidenav-sub-item">
-            <li matRipple [routerLink]="['/', 'inventory', 'products', 'add']">Add Product</li>
-          </ul>
-        </li>
-        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'orders']"><mat-icon>plagiarism</mat-icon>&nbsp;&nbsp;Orders</li>
-        <li>
-          <ul class="sidenav-sub-item">
-            <li matRipple>Transfers</li>
-            <li matRipple>Replenishment</li>
-            <li matRipple [routerLink]="['/','inventory', 'orders', 'scraps']">Scrap</li>
-          </ul>
-        </li>
-        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'locations']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Locations</li>
-        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'warehouses']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Warehouses</li>
-        <li class="sidenav-item" matRipple [routerLink]="['/', 'inventory', 'contacts']"><mat-icon>add_box</mat-icon>&nbsp;&nbsp;Contacts</li>
-      </ul>
-    </mat-drawer>
-    <div class="inventory-sidenav-content">
-      <mat-toolbar color="primary">
-        <mat-toolbar-row>
-          <button mat-icon-button id="btnToggleSidenav" type="button" (click)="drawer.toggle()" aria-label="Example icon button with a home icon">
-            <mat-icon>menu</mat-icon>
+  <mat-toolbar color="primary" class="columns is-gapless is-multiline" 
+      style="height: 9%;">
+      <div class="" style="margin-right: 1rem;">
+          <button  mat-mini-fab color="secondary" aria-label="Master Menu" (click)="this.navigate(['/'])">
+              <mat-icon>filter_list</mat-icon>
           </button>
-        </mat-toolbar-row>
-      </mat-toolbar>
-      <router-outlet></router-outlet>
-    </div>
-  </mat-drawer-container>
+      </div>
+      <h4 
+          class="column is-2">
+          Manufacturing
+      </h4>
+      <mat-form-field appearance="fill" class="column is-2 dropdown">
+          <mat-label>Orders</mat-label>
+          <mat-select>
+            <mat-option class="widen" (click)="this.navigate(['/', 'inventory', 'orders', 'replenishments'])">Replenishment</mat-option>
+            <mat-option class="widen" (click)="this.navigate(['/', 'inventory', 'orders', 'scraps'])">Scrap</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <div style="padding-left: 1rem;"></div>
+      <mat-form-field appearance="fill" class="column is-3 dropdown">
+          <mat-label>Master Data</mat-label>
+          <mat-select>
+              <mat-option class="widen" (click)="this.navigate(['/', 'inventory', 'categories'])">
+                  Categories
+              </mat-option>
+              <mat-option class="widen" (click)="this.navigate(['/', 'inventory', 'products'])">
+                  Products
+              </mat-option>
+              <mat-option class="widen" (click)="this.navigate(['/', 'inventory', 'addresses', 'add'])">
+                  Add Address
+              </mat-option>
+              <mat-option class="widen" (click)="this.navigate(['/', 'inventory', 'locations'])">
+                  Locations
+              </mat-option>
+              <mat-option class="widen" (click)="this.navigate(['/', 'inventory', 'warehouses'])">
+                  Warehouses
+              </mat-option>
+          </mat-select>
+      </mat-form-field>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
 </div>

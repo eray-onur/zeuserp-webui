@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { ScrapDetailsDto } from 'src/app/models/complex-types/scrap-details.dto';
 import { Product } from 'src/app/models/product.model';
 import { Location } from 'src/app/models/location.model';
@@ -21,7 +21,7 @@ export class ScrapAddComponent implements OnInit, OnDestroy {
 
   orderId: number;
 
-  routeParamsSub:  Subscription;
+  routeParamsSub: Subscription;
 
   scrapAddSub: Subscription;
   scrapDetailsDto: Scrap;
@@ -53,7 +53,7 @@ export class ScrapAddComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-  ) { 
+  ) {
     this.scrapForm = this.fb.group({
       reference: ['', [Validators.required, Validators.minLength(3)]],
       description: [''],
@@ -131,7 +131,7 @@ export class ScrapAddComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if(this.orderId) {
+    if (this.orderId) {
       const updatedScrap: Scrap = {
         id: this.orderId,
         reference: this.scrapForm.get("reference").value,

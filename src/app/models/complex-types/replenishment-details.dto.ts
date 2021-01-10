@@ -1,14 +1,14 @@
 export interface ReplenishmentDetailsDto {
     id?: number;
-    productId?: number;
-    productName?: string;
+    reference: string;
+    productToReplenishId?: number;
+    productToReplenishName?: string;
     locationId?: number;
     locationName?: string;
     onHandQuantity: number;
-    orderedQuantity: number;
+    orderQuantity: number;
     replenishmentStatusId: ReplenishmentStatus;
 }
-  
 enum ReplenishmentStatus {
     DRAFTED = 0,
     IN_PROGRESS = 1,
@@ -16,4 +16,3 @@ enum ReplenishmentStatus {
     INSUFFICIENT = 3,
     COMPLETE = 4,
 }
-  

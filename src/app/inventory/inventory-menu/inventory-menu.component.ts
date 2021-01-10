@@ -51,4 +51,8 @@ export class InventoryMenuComponent implements OnInit {
     this.router.navigate(["/", "inventory", "products", productId]);
   }
 
+  navigate(url) {
+    this.router.navigate(url);
+  }
+
 }
