@@ -75,7 +75,7 @@ export class BomComponent implements OnInit, OnDestroy {
   }
 
   navigateToEdit(id: number) {
-    this.router.navigate(['/', 'inventory', 'boms', 'edit', id.toString()]);
+    this.router.navigate(['/', 'manufacturing', 'boms', 'edit', id.toString()]);
   }
 
 }

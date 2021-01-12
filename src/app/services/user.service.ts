@@ -36,6 +36,7 @@ export class UserService {
       if(storedUsername) {
         this.currentUser.username = storedUsername;
       }
+      return storedUsername;
     }
 
     getAllUsers() {

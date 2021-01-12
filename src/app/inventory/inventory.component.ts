@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-inventory',
@@ -10,9 +11,12 @@ export class InventoryComponent implements OnInit {
 
   opened: boolean = false;
 
-  constructor(private router: Router) { }
+  currentUser: string = "";
+
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.currentUser = this.userService.getUserByName();
   }
 
   navigate(url) {
