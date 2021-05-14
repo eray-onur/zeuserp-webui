@@ -1,6 +1,12 @@
-# NightWarWebUI
+# ZeusERP WebUI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
+2020 Eylül Ayında başlayan okul projemiz olan bir Kurumsal Kaynak Planlama Yazılımı.
+Sadece Manufacturing ve Inventory modülleri tamamlanmıştır.
+
+# Lisans Bilgileri
+
+Bu projenin kaynak kodu GPL v3 lisansı üzerinde kullanım geçerliliği bulundurmaktadır.
+Daha detaylı bilgi için LICENSE dökümanını gözden geçirebilirsiniz.
 
 ## Development server
 
